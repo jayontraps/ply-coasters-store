@@ -12,13 +12,13 @@ const ProductsListingItem = ({ product }) => {
     <article className="column is-one-quarter content">
       <Link
         to={`/product/${product.handle}`}
-        style={{ display: "block", marginBottom: "2rem" }}
+        style={{ display: "block", marginBottom: "2rem", width: "300px" }}
       >
         <Image fluid={firstImage.localFile.childImageSharp.fluid} />
         <h3 className="title is-3">{product.title}</h3>
         <p className="subtitle is-4">${firstVariant.price}</p>
       </Link>
-      <AddToCart />
+      <AddToCart variantId={firstVariant.shopifyId} />
     </article>
   )
 }

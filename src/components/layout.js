@@ -1,7 +1,9 @@
 import React from "react"
+import { Global } from "@emotion/core"
+import globalStyles from "./styles/global"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import Header from "./header"
+import Header from "./Header/index.js"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -16,15 +18,13 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      <Global styles={globalStyles} />
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div>
         <main className="section" style={{ minHeight: "90vh" }}>
           {children}
         </main>
-        <footer
-          className="footer"
-          style={{ background: "var(--darkPurp)", color: "white" }}
-        >
+        <footer className="footer">
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>

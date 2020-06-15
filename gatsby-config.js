@@ -1,17 +1,22 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Ply Coasters`,
+    description: `Ply Coasters are handmade in London from 6mm FSC birch plywood, using maps, comics and abandoned books.`,
+    author: `Jason Righelato`,
   },
   plugins: [
+    "gatsby-plugin-emotion",
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     {
       resolve: "gatsby-source-shopify",
       options: {
-        shopName: "YOUR_SHOPNAME",
-        accessToken: "YOUR_TOKEN",
+        shopName: "ply-coasters",
+        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
         verbose: true,
         paginationSize: 30,
       },
