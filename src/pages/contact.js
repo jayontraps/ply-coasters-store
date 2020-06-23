@@ -1,29 +1,14 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import styled from "@emotion/styled"
 import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { ZoomIn } from "../components/react-spring-animation"
-import Slider from "../components/Slider"
-import LeadModule from "../components/LeadModule"
 
-const Section = styled.div`
-  margin: 0 auto;
-  padding-bottom: 3rem;
-  width: ${({ theme }) => theme.layout.width};
-  max-width: ${({ theme }) => theme.layout.maxWidth};
-`
-
-const SliderSection = styled.div`
-  margin: 0 auto;
-  max-width: 1000px;
-`
-
-const IndexPage = () => {
+const Contact = () => {
   const { image } = useStaticQuery(graphql`
     query {
-      image: file(relativePath: { eq: "images-full-screen-4.jpg" }) {
+      image: file(relativePath: { eq: "images-full-screen-1.jpg" }) {
         sharp: childImageSharp {
           fluid(maxWidth: 1800) {
             ...GatsbyImageSharpFluid_withWebp
@@ -35,7 +20,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title="Contact" />
       <ZoomIn>
         <Img
           backgroundColor
@@ -47,17 +32,18 @@ const IndexPage = () => {
           objectPosition="50% 50%"
         />
       </ZoomIn>
-      <Section>
-        <LeadModule />
-      </Section>
-      <SliderSection>
-        <Slider />
-      </SliderSection>
-      <Section></Section>
-      <Section></Section>
-      <Section></Section>
+      <div>
+        <h1>Contact</h1>
+        <p>
+          Eu commodo nisi deserunt exercitation consequat cillum ad irure duis
+          fugiat elit. Et cupidatat nulla ea excepteur eiusmod excepteur laborum
+          magna adipisicing consectetur fugiat. Duis aliquip cillum qui eu
+          commodo commodo labore ex adipisicing irure nisi sit ex dolore.
+          Occaecat nisi ipsum quis deserunt minim cillum quis.
+        </p>
+      </div>
     </Layout>
   )
 }
 
-export default IndexPage
+export default Contact

@@ -1,16 +1,16 @@
 import React, { useContext } from "react"
-import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import { useTransition } from "react-spring"
 import { FaShoppingCart } from "react-icons/fa"
-// import logo from "../../images/logo.svg"
+import logo from "../../../images/logo-shapes-plus-words-2.svg"
 import Cart from "../Cart/Cart"
 import Nav from "../Nav"
 import { StoreContext } from "../../context/StoreContext"
 import StyledHeader from "./styles"
+import { SpringLink } from "../react-spring-animation"
 
 const Header = ({ siteTitle }) => {
-  const { isCartOpen, toggleCartOpen, checkout, isLoading } = useContext(
+  const { toggleCartOpen, checkout, isLoading, isCartOpen } = useContext(
     StoreContext
   )
 
@@ -27,9 +27,9 @@ const Header = ({ siteTitle }) => {
   return (
     <StyledHeader {...{ isLoading }} className="header">
       <div className="branding">
-        <Link to="/" className="branding__link">
-          {/* <img src={logo} alt="Level Up Logo" className="branding__logo" /> */}
-        </Link>
+        <SpringLink to="/" className="branding__link">
+          <img src={logo} alt="Level Up Logo" className="branding__logo" />
+        </SpringLink>
       </div>
 
       <Nav />

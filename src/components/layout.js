@@ -1,9 +1,19 @@
 import React from "react"
 import { Global } from "@emotion/core"
-import globalStyles from "./styles/global"
+import styled from "@emotion/styled"
+import globalStyles from "../theme/global"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import Header from "./Header/index.js"
+import Header from "./Header/header.js"
+import Footer from "./Footer/footer.js"
+import { MySpring } from "./react-spring-animation"
+
+const StyledLayout = styled.div`
+  min-height: 100vh;
+  width: 100vw;
+  color: ${(props) => props.theme.colors.primary};
+  background-color: #f4e1b6;
+`
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -20,16 +30,10 @@ const Layout = ({ children }) => {
     <>
       <Global styles={globalStyles} />
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div>
-        <main className="section" style={{ minHeight: "90vh" }}>
-          {children}
-        </main>
-        <footer className="footer">
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
+      <MySpring>
+        <StyledLayout>{children}</StyledLayout>
+      </MySpring>
+      <Footer />
     </>
   )
 }

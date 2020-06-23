@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 
 const StyledNav = styled.nav`
   a {
-    color: #222;
+    color: #fff;
     text-decoration: none;
     display: inline-block;
     padding: 0.5rem;
@@ -10,10 +10,10 @@ const StyledNav = styled.nav`
     border-bottom: 2px solid transparent;
     &:hover {
       cursor: pointer;
-      border-bottom: 2px solid #222;
+      border-bottom: 2px solid #fff;
     }
     &.current-page {
-      border-bottom: 2px solid #222;
+      border-bottom: 2px solid #fff;
     }
   }
 `

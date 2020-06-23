@@ -1,22 +1,26 @@
 import styled from "@emotion/styled"
 
 const StyledHeader = styled.header`
-  background-color: ${props => (props.isLoading ? "red" : "gainsboro")};
+  position: fixed;
+  z-index: 99999;
+  width: 100%;
+  height: 80px;
+  background-color: ${(props) => (props.isLoading ? "red" : "transparent")};
   padding: 1rem 100px 1rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
 
   .branding {
+    position: relative;
     &__logo {
+      width: 100%;
+      height: auto;
     }
 
     &__link {
       display: block;
       width: 300px;
-      height: 80px;
-      background-color: gray;
     }
   }
 

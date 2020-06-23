@@ -1,16 +1,23 @@
 import React from "react"
 import StyledNav from "./styles"
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
+import { SpringLink } from "../react-spring-animation"
 
 const Nav = () => {
   return (
     <StyledNav>
-      <Link activeClassName="current-page" to="/">
+      <SpringLink activeClassName="current-page" to="/">
         Home
-      </Link>
-      <Link activeClassName="current-page" to="/about">
-        About
-      </Link>
+      </SpringLink>
+      <SpringLink activeClassName="current-page" to="/gallery">
+        Gallery
+      </SpringLink>
+      <SpringLink activeClassName="current-page" to="/store">
+        Store
+      </SpringLink>
+      <SpringLink activeClassName="current-page" to="/test">
+        Test
+      </SpringLink>
     </StyledNav>
   )
 }
