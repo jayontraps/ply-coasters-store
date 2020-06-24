@@ -102,6 +102,9 @@ const SliderNav = styled("ul")`
     width: 2rem;
     height: 2rem;
     margin: 0 1rem;
+    &:hover {
+      cursor: pointer;
+    }
   }
 `
 

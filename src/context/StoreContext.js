@@ -8,6 +8,7 @@ const client = Client.buildClient({
 
 const defaultValues = {
   isCartOpen: false,
+  isLoading: false,
   toggleCartOpen: () => {},
   cart: [],
   addProductToCart: () => {},

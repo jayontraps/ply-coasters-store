@@ -112,7 +112,7 @@ const Image = () => {
           backgroundColor
           fluid={image.sharp.fluid}
           style={{
-            height: "10010h",
+            height: "100vh",
           }}
           objectFit="cover"
           objectPosition="50% 50%"

@@ -1,6 +1,5 @@
 import React from "react"
 import StyledNav from "./styles"
-// import { Link } from "gatsby"
 import { SpringLink } from "../react-spring-animation"
 
 const Nav = () => {
@@ -17,6 +16,9 @@ const Nav = () => {
       </SpringLink>
       <SpringLink activeClassName="current-page" to="/test">
         Test
+      </SpringLink>
+      <SpringLink activeClassName="current-page" to="/detect">
+        detect
       </SpringLink>
     </StyledNav>
   )

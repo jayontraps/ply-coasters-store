@@ -20,12 +20,10 @@ const LeadModule = () => {
         ullamco do excepteur laborum
       </h1>
       <p>
-        Cupidatat nulla labore ea ad id id ut labore et. Minim ullamco id tempor
-        non ullamco do excepteur laborum. In excepteur culpa cillum excepteur
-        dolor veniam commodo. Dolor ea pariatur ex laboris dolore ex aute veniam
-        irure aliqua amet dolore ut occaecat. Ex ex non consectetur minim fugiat
-        cupidatat laboris irure enim cupidatat mollit. Enim veniam non elit
-        dolor et laboris deserunt ad eu consectetur.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam officiis
+        incidunt officia, aliquid beatae reiciendis doloribus consequuntur
+        voluptas similique inventore molestias, neque quia ut illo quasi est
+        assumenda recusandae eaque.
       </p>
     </StyledLeadModule>
   )

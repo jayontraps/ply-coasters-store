@@ -11,7 +11,6 @@ import { MySpring } from "./react-spring-animation"
 const StyledLayout = styled.div`
   min-height: 100vh;
   width: 100vw;
-  color: ${(props) => props.theme.colors.primary};
   background-color: #f4e1b6;
 `
 

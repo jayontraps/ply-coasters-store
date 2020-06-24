@@ -1,4 +1,9 @@
 const theme = {
+  mq: {
+    small: "@media (max-width: 480px)",
+    medium: "@media (min-width: 481px)",
+    large: "@media (min-width: 1029px)",
+  },
   layout: {
     innerWidth: "800px",
     maxWidth: "1200px",

@@ -1,6 +1,27 @@
 import styled from "@emotion/styled"
+import theme from "../../theme/theme"
+
+const {
+  mq: { small, medium, large },
+} = theme
 
 const StyledNav = styled.nav`
+  display: none;
+  ${large} {
+    display: flex;
+  }
+
+  ${small} {
+    background-color: black;
+  }
+
+  ${medium} {
+    background-color: hotpink;
+  }
+
+  ${large} {
+    background-color: blue;
+  }
   a {
     color: #fff;
     text-decoration: none;
