@@ -19,7 +19,7 @@ module.exports = {
       resolve: "gatsby-source-shopify",
       options: {
         shopName: "ply-coasters",
-        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+        accessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
         verbose: true,
         paginationSize: 30,
       },

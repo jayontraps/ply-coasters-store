@@ -3,7 +3,7 @@ import Client from "shopify-buy"
 
 const client = Client.buildClient({
   domain: "ply-coasters.myshopify.com",
-  storefrontAccessToken: "0f62cb5dd9f3d865332cacce4a23601b",
+  storefrontAccessToken: process.env.GATSBY_SHOPIFY_ACCESS_TOKEN,
 })
 
 const defaultValues = {
