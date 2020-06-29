@@ -8,11 +8,12 @@ import { ZoomIn } from "../components/react-spring-animation"
 import Slider from "../components/Slider"
 import LeadModule from "../components/LeadModule"
 
-const Section = styled.div`
-  margin: 0 auto;
-  padding-bottom: 3rem;
-  width: ${({ theme }) => theme.layout.width};
-  max-width: ${({ theme }) => theme.layout.maxWidth};
+const Container = styled.div`
+  margin-top: 94vh;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 9999;
+  background-color: ${({ theme }) => theme.colors.bgColor};
 `
 
 const SliderSection = styled.div`
@@ -33,29 +34,57 @@ const IndexPage = () => {
     }
   `)
 
+  const sliderImages = [
+    "images-full-screen-1.jpg",
+    "images-full-screen-5.jpg",
+    "images-full-screen-6.jpg",
+    "teacup-full-screen-compressor.jpg",
+  ]
+
+  const ImageDiv = styled("div")`
+    width: 100%;
+    padding-bottom: 66.66%;
+    background-size: cover;
+  `
+
+  const items = sliderImages.map((img) => (
+    <ImageDiv
+      style={{
+        backgroundImage: `url(/img/${img})`,
+      }}
+    />
+  ))
+
   return (
     <Layout>
       <SEO title="Home" />
-      <ZoomIn>
-        <Img
-          backgroundColor
-          fluid={image.sharp.fluid}
-          style={{
-            height: "100vh",
-          }}
-          objectFit="cover"
-          objectPosition="50% 50%"
-        />
-      </ZoomIn>
-      <Section>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          width: "100vw",
+          height: "94vh",
+          overflow: "hidden",
+        }}
+      >
+        <ZoomIn>
+          <Img
+            backgroundColor
+            fluid={image.sharp.fluid}
+            objectFit="cover"
+            objectPosition="50% 50%"
+            style={{
+              height: "94vh",
+            }}
+          />
+        </ZoomIn>
+      </div>
+      <Container>
         <LeadModule />
-      </Section>
-      <SliderSection>
-        <Slider />
-      </SliderSection>
-      <Section></Section>
-      <Section></Section>
-      <Section></Section>
+        <SliderSection>
+          <Slider items={items} />
+        </SliderSection>
+      </Container>
     </Layout>
   )
 }

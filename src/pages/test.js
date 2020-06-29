@@ -104,7 +104,7 @@ const Image = () => {
       style={{
         position: "fixed",
         width: "100vw",
-        height: "100vh",
+        height: "94vh",
       }}
     >
       <ZoomIn>
@@ -112,7 +112,7 @@ const Image = () => {
           backgroundColor
           fluid={image.sharp.fluid}
           style={{
-            height: "100vh",
+            height: "94vh",
           }}
           objectFit="cover"
           objectPosition="50% 50%"
@@ -138,7 +138,6 @@ export default class extends React.Component {
             <ParallaxLayer
               onClick={() => this.scroll(1)}
               offset={0}
-              speed={0.25}
               style={{
                 backgroundColor: "transparent",
               }}

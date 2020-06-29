@@ -1,71 +1,20 @@
 import React, { useState, useEffect } from "react"
 import styled from "@emotion/styled"
+import { isBrowser } from "react-device-detect"
 import { Transition, animated } from "react-spring/renderprops"
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useKeyPress } from "../hooks"
 
 /* eslint-disable */
-const TestScreen = styled("div")`
-  width: 100%;
-  padding-bottom: 66.66%;
-  background-size: cover;
-  /* height: 100%; */
-`
-
-function TestScreen1(props) {
-  return (
-    <TestScreen
-      style={{
-        backgroundImage: "url(/img/images-full-screen-1.jpg)",
-      }}
-    />
-  )
-}
-
-function TestScreen2(props) {
-  return (
-    <TestScreen
-      style={{
-        backgroundImage: "url(/img/images-full-screen-5.jpg)",
-      }}
-    />
-  )
-}
-
-function TestScreen3(props) {
-  return (
-    <TestScreen
-      style={{
-        backgroundImage: "url(/img/images-full-screen-6.jpg)",
-      }}
-    />
-  )
-}
-
-function TestScreen4(props) {
-  return (
-    <TestScreen
-      style={{
-        backgroundImage: "url(/img/teacup-full-screen-compressor.jpg)",
-      }}
-    />
-  )
-}
-
-const testScreens = [TestScreen1, TestScreen2, TestScreen3, TestScreen4]
 
 const Container = styled("div")`
-  /* min-height: 600px;
-  height: 80vh; */
-
-  /* width: 100%;
-  max-width: ${({ theme }) => theme.layout.maxWidth}; */
-
   padding-bottom: 66.66%;
   overflow: hidden;
-  margin: 0 auto;  
+  margin: 0 auto;
   background-color: #000;
   position: relative;
-  
+
   & > div {
     will-change: transform, opacity;
     position: absolute;
@@ -73,16 +22,38 @@ const Container = styled("div")`
   }
 
   button {
+    appearance: none;
+    border: none;
+    border-radius: 0;
+    outline: 0;
+    background-color: transparent;
+    color: white;
     position: absolute;
     top: calc(50% - 1rem);
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
     &.next {
-      right: 3rem;
+      right: 3%;
     }
     &.prev {
-      left: 3rem;
+      left: 3%;
     }
-    &::hover {
+    &:hover {
       cursor: pointer;
+    }
+    &:disabled {
+      color: #c3c3c3;
     }
   }
 `
@@ -99,9 +70,12 @@ const SliderNav = styled("ul")`
   li {
     display: block;
     background-color: rgba(255, 255, 255, 0.5);
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     margin: 0 1rem;
+    &.active {
+      background-color: rgba(255, 255, 255, 0.8);
+    }
     &:hover {
       cursor: pointer;
     }
@@ -111,7 +85,7 @@ const SliderNav = styled("ul")`
 const FORWARD = "forward"
 const BACKWARD = "backward"
 
-const Slider = () => {
+const Slider = ({ items }) => {
   const [direction, setDirection] = useState("init")
   const [index, setIndex] = useState(0)
   const ArrowRight = useKeyPress("ArrowRight")
@@ -121,7 +95,7 @@ const Slider = () => {
     e.preventDefault()
     if (dir === "next") {
       setDirection(FORWARD)
-      setIndex(index === testScreens.length - 1 ? 0 : index + 1)
+      setIndex(index === items.length - 1 ? 0 : index + 1)
     } else {
       setDirection(BACKWARD)
       setIndex(index > 0 ? index - 1 : 0)
@@ -141,7 +115,7 @@ const Slider = () => {
       setIndex(newIndex)
     }
     if (ArrowRight) {
-      const newIndex = index === testScreens.length - 1 ? index : index + 1
+      const newIndex = index === items.length - 1 ? index : index + 1
       setDirection(FORWARD)
       setIndex(newIndex)
     }
@@ -181,33 +155,38 @@ const Slider = () => {
           // }}
         >
           {(index) => (style) => (
-            <animated.div style={{ ...style }}>
-              {React.createElement(testScreens[index])}
-            </animated.div>
+            <animated.div style={{ ...style }}>{items[index]}</animated.div>
           )}
         </Transition>
 
         <button
-          className="prev"
+          className="slider_nav_icons prev"
           disabled={index === 0}
           onClick={(e) => move(e, "prev")}
         >
-          Prev
+          <ArrowBackIosIcon />
         </button>
         <button
-          className="next"
-          disabled={index === testScreens.length - 1}
+          className="slider_nav_icons next"
+          disabled={index === items.length - 1}
           onClick={(e) => move(e, "next")}
         >
-          Next
+          <ArrowForwardIosIcon />
         </button>
-        <SliderNav>
-          {testScreens.map((screen, i) => {
-            return (
-              <li key={`slider-nav-${i}`} onClick={() => handleNavClick(i)} />
-            )
-          })}
-        </SliderNav>
+        {isBrowser && (
+          <SliderNav>
+            {items.map((screen, i) => {
+              const className = i === index ? "active" : ""
+              return (
+                <li
+                  {...{ className }}
+                  key={`slider-nav-${i}`}
+                  onClick={() => handleNavClick(i)}
+                />
+              )
+            })}
+          </SliderNav>
+        )}
       </Container>
     </div>
   )

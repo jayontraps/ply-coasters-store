@@ -8,10 +8,6 @@ const globalStyles = () => {
       box-sizing: border-box;
       margin: 0;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
 
     body,
     html {
@@ -30,6 +26,12 @@ const globalStyles = () => {
       &:hover {
         cursor: pointer;
       }
+    }
+
+    .btn_icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     ${"" /* .tl-wrapper-status--exiting {

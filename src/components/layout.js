@@ -5,13 +5,12 @@ import globalStyles from "../theme/global"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import Header from "./Header/header.js"
-import Footer from "./Footer/footer.js"
 import { MySpring } from "./react-spring-animation"
 
 const StyledLayout = styled.div`
   min-height: 100vh;
   width: 100vw;
-  background-color: #f4e1b6;
+  background-color: ${({ theme }) => theme.colors.bgColor};
 `
 
 const Layout = ({ children }) => {
@@ -32,7 +31,6 @@ const Layout = ({ children }) => {
       <MySpring>
         <StyledLayout>{children}</StyledLayout>
       </MySpring>
-      <Footer />
     </>
   )
 }

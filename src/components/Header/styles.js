@@ -9,54 +9,58 @@ const StyledHeader = styled.header`
   position: fixed;
   z-index: 99999;
   width: 100%;
-  height: 80px;
-  background-color: ${(props) => (props.isLoading ? "red" : "transparent")};
+  height: 60px;
+  background-color: ${(props) =>
+    props.isLoading ? "red" : props.theme.colors.slate};
   padding: 1rem;
-  padding-right: calc(120px + 3rem);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 
   .branding {
-    position: relative;
     &__logo {
       width: 100%;
       height: auto;
     }
 
     &__link {
-      display: block;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       max-width: 300px;
     }
   }
 
-  .nav_toggle__btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 60px;
-    height: 60px;
-    &__icon {
-      width: 60px;
-      height: 60px;
+  .header_btn {
+    appearance: none;
+    border: 0;
+    outline: none;
+    width: calc(60px - 2rem);
+    height: calc(60px - 2rem);
+    background-color: transparent;
+    svg {
+      fill: whitesmoke;
     }
+  }
 
+  .nav_toggle__btn {
     ${large} {
       display: none;
     }
   }
 
   .cart_toggle__btn {
-    position: absolute;
-    top: 1rem;
-    right: calc(60px + 2rem);
-    width: 60px;
-    height: 60px;
-    &__icon {
-      width: 60px;
-      height: 60px;
-    }
+  }
+
+  .btn_group {
+    width: 100px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
   }
 `
 

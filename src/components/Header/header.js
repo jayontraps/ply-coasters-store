@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react"
 import PropTypes from "prop-types"
 import { useTransition } from "react-spring"
-import { FaShoppingCart } from "react-icons/fa"
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket"
+import MenuIcon from "@material-ui/icons/Menu"
 import logo from "../../../images/logo-shapes-plus-words-2.svg"
 import Cart from "../Cart/Cart"
 import Nav from "../Nav"
@@ -34,18 +35,10 @@ const Header = ({ siteTitle }) => {
 
   return (
     <StyledHeader {...{ isLoading }} className="header">
-      <div className="branding">
-        <SpringLink to="/" className="branding__link">
-          <img src={logo} alt="Level Up Logo" className="branding__logo" />
-        </SpringLink>
-      </div>
+      <SpringLink to="/" className="branding__link">
+        <img src={logo} alt="Level Up Logo" className="branding__logo" />
+      </SpringLink>
 
-      <button
-        onClick={() => setMobileNav(true)}
-        className="nav_toggle__btn button"
-      >
-        nav
-      </button>
       <Nav />
       {mobileNavTransitions.map(
         ({ item, key, props }) =>
@@ -53,11 +46,21 @@ const Header = ({ siteTitle }) => {
             <MobileNav key={key} style={props} setMobileNav={setMobileNav} />
           )
       )}
-
-      <button className="cart_toggle__btn button" onClick={toggleCartOpen}>
-        {quantity > 0 && <div>{quantity}</div>}
-        <FaShoppingCart />
-      </button>
+      <div className="btn_group">
+        <button
+          onClick={() => setMobileNav(true)}
+          className="nav_toggle__btn btn_icon header_btn"
+        >
+          <MenuIcon />
+        </button>
+        <button
+          className="cart_toggle__btn btn_icon header_btn"
+          onClick={toggleCartOpen}
+        >
+          {quantity > 0 && <div>{quantity}</div>}
+          <ShoppingBasketIcon />
+        </button>
+      </div>
 
       {cartTransitions.map(
         ({ item, key, props }) => item && <Cart key={key} style={props} />

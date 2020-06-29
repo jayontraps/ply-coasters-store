@@ -6,6 +6,8 @@ const StyledMobileNav = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 
   .nav_close__btn {
     position: absolute;
@@ -14,6 +16,7 @@ const StyledMobileNav = styled.div`
   }
 
   a {
+    font-size: 1.5rem;
     color: #fff;
     text-decoration: none;
     display: block;

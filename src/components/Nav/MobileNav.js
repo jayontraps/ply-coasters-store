@@ -1,5 +1,6 @@
 import React from "react"
 import { animated } from "react-spring"
+import CloseIcon from "@material-ui/icons/Close"
 import StyledMobileNav from "./MobileNavStyles"
 import { SpringLink } from "../react-spring-animation"
 
@@ -22,9 +23,9 @@ const MobileNav = ({ setMobileNav, style }) => {
       <StyledMobileNav>
         <button
           onClick={() => setMobileNav(false)}
-          className="nav_close__btn button"
+          className="nav_close__btn button btn_icon"
         >
-          Close
+          <CloseIcon />
         </button>
 
         <SpringLink activeClassName="current-page" to="/">

@@ -7,9 +7,11 @@ const theme = {
   layout: {
     innerWidth: "800px",
     maxWidth: "1200px",
+    productWidth: "1080px",
     width: "95%",
   },
   colors: {
+    bgColor: "#F8E1B6",
     primary: "#17181A",
     slate: "#20232f",
     active: "hotpink",

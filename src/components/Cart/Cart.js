@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
 import { animated } from "react-spring"
+import CloseIcon from "@material-ui/icons/Close"
 import { StoreContext } from "../../context/StoreContext"
 
 const Cart = ({ style }) => {
@@ -31,13 +32,13 @@ const Cart = ({ style }) => {
       <button
         style={{
           position: "absolute",
-          top: 10,
-          right: 10,
+          top: "1rem",
+          right: "1rem",
         }}
-        className="delete is-large"
+        className="button"
         onClick={toggleCartOpen}
       >
-        Close Cart
+        <CloseIcon />
       </button>
       <h3 className="title">Cart</h3>
       {checkout.lineItems.length > 0 ? (
@@ -63,7 +64,7 @@ const Cart = ({ style }) => {
                 <p className="subtitle">Qty: {item.quantity}</p>
                 <button
                   onClick={() => removeProductFromCart(item.id)}
-                  className="is-small button is-danger is-outlined"
+                  className="button"
                 >
                   Remove
                 </button>
@@ -83,7 +84,7 @@ const Cart = ({ style }) => {
                   onClick={() =>
                     removeCoupon(checkout.discountApplications[0].code)
                   }
-                  className="is-small button is-danger is-outlined"
+                  className="remove_btn button btn_icon"
                 >
                   Remove
                 </button>
@@ -107,7 +108,9 @@ const Cart = ({ style }) => {
                     type="text"
                   />
                 </div>
-                <button className="button">Add Coupon</button>
+                <button className="add_coupon_btn button btn_icon">
+                  Add Coupon
+                </button>
               </form>
             )}
           </div>
@@ -116,10 +119,7 @@ const Cart = ({ style }) => {
             Total: <h5 className="title">${checkout.totalPrice}</h5>
           </div>
           <div style={{ marginTop: "2rem" }}>
-            <a
-              href={checkout.webUrl}
-              className="button is-fullwidth is-success"
-            >
+            <a href={checkout.webUrl} className="buy_btn button btn_icon">
               Checkout Now
             </a>
           </div>
