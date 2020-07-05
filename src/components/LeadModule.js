@@ -3,22 +3,35 @@ import styled from "@emotion/styled"
 
 const StyledLeadModule = styled.div`
   margin: 0 auto;
-  background-color: ${({ theme }) => theme.colors.bgColor};
   max-width: ${({ theme }) => theme.layout.innerWidth};
   text-align: center;
+
+  &.hidden,
+  &.visible {
+    transition: opacity 800ms ease-out, transform 800ms ease-out;
+    will-change: opacity;
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  &.visible {
+    opacity: 1;
+    transform: translateY(0px);
+  }
   h1 {
+    max-width: 500px;
     line-height: 1.2em;
-    font-size: calc(36px + 44 * (100vw - 320px) / 1180);
-    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    margin: 2rem auto;
   }
   p {
-    margin-bottom: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
   }
 `
 
-const LeadModule = () => {
+const LeadModule = ({ className }) => {
   return (
-    <StyledLeadModule>
+    <StyledLeadModule {...{ className }}>
       <h1>Handmade vintage flavour hipster retro maps Minim ullamco</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam officiis

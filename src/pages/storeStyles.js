@@ -1,6 +1,11 @@
 import styled from "@emotion/styled"
 
 const StyledContainer = styled.div`
+  .wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
   .background_page {
     width: 100vw;
     height: 100%;
@@ -20,33 +25,21 @@ const StyledContainer = styled.div`
     }
   }
 
-  .collections {
-    width: 100%;
-    height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .item {
-      margin-right: 5%;
-      &:last-of-type {
-        margin-right: 0;
-      }
+  .item {
+    max-width: 300px;
+    margin-right: 5%;
+    &:last-of-type {
+      margin-right: 0;
     }
   }
 
   .item {
-    width: 33.33%;
-    max-width: 250px;
-    height: 300px;
-
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
 
   .item_image {
-    width: 100%;
+    width: 300px;
     padding-top: 100%;
     background-color: ${({ theme }) => theme.colors.slate};
   }

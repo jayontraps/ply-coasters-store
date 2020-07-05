@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { ZoomIn } from "../components/react-spring-animation"
 
-const Contact = () => {
+const Contact = ({ location }) => {
   const { image } = useStaticQuery(graphql`
     query {
       image: file(relativePath: { eq: "images-full-screen-1.jpg" }) {
@@ -19,7 +19,7 @@ const Contact = () => {
   `)
 
   return (
-    <Layout>
+    <Layout withHero>
       <SEO title="Contact" />
       <ZoomIn>
         <Img

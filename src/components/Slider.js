@@ -9,10 +9,12 @@ import { useKeyPress } from "../hooks"
 /* eslint-disable */
 
 const Container = styled("div")`
-  padding-bottom: 66.66%;
+  width: 100%;
+  height: 94vh;
+  /* height: 0; */
+  /* padding-bottom: 66.66%; */
   overflow: hidden;
   margin: 0 auto;
-  background-color: #000;
   position: relative;
 
   & > div {
@@ -85,7 +87,7 @@ const SliderNav = styled("ul")`
 const FORWARD = "forward"
 const BACKWARD = "backward"
 
-const Slider = ({ items }) => {
+const Slider = ({ items, bullets = false }) => {
   const [direction, setDirection] = useState("init")
   const [index, setIndex] = useState(0)
   const ArrowRight = useKeyPress("ArrowRight")
@@ -122,73 +124,71 @@ const Slider = ({ items }) => {
   }, [ArrowRight, ArrowLeft])
 
   return (
-    <div>
-      <Container className="slider">
-        <Transition
-          native
-          reset
-          unique
-          items={index}
-          from={{
-            opacity: 0.5,
-            transform:
-              direction === "init"
-                ? "translate3d(0%, 0, 0)"
-                : direction === FORWARD
-                ? "translate3d(50%, 0 ,0)"
-                : "translate3d(-50%, 0 ,0)",
-          }}
-          enter={{
-            opacity: 1,
-            transform: "translate3d(0%, 0, 0)",
-          }}
-          leave={{
-            opacity: 0.5,
-            transform:
-              direction === FORWARD
-                ? "translate3d(-25%, 0, 0)"
-                : "translate3d(+25%, 0, 0)",
-          }}
-          // config={{
-          //   duration: 8000,
-          //   // easing: easings.easeCubicOut,
-          // }}
-        >
-          {(index) => (style) => (
-            <animated.div style={{ ...style }}>{items[index]}</animated.div>
-          )}
-        </Transition>
-
-        <button
-          className="slider_nav_icons prev"
-          disabled={index === 0}
-          onClick={(e) => move(e, "prev")}
-        >
-          <ArrowBackIosIcon />
-        </button>
-        <button
-          className="slider_nav_icons next"
-          disabled={index === items.length - 1}
-          onClick={(e) => move(e, "next")}
-        >
-          <ArrowForwardIosIcon />
-        </button>
-        {isBrowser && (
-          <SliderNav>
-            {items.map((screen, i) => {
-              const className = i === index ? "active" : ""
-              return (
-                <li
-                  {...{ className }}
-                  key={`slider-nav-${i}`}
-                  onClick={() => handleNavClick(i)}
-                />
-              )
-            })}
-          </SliderNav>
+    <Container className="slider">
+      <Transition
+        native
+        reset
+        unique
+        items={index}
+        from={{
+          opacity: 0.5,
+          transform:
+            direction === "init"
+              ? "translate3d(0%, 0, 0)"
+              : direction === FORWARD
+              ? "translate3d(50%, 0 ,0)"
+              : "translate3d(-50%, 0 ,0)",
+        }}
+        enter={{
+          opacity: 1,
+          transform: "translate3d(0%, 0, 0)",
+        }}
+        leave={{
+          opacity: 0.5,
+          transform:
+            direction === FORWARD
+              ? "translate3d(-25%, 0, 0)"
+              : "translate3d(+25%, 0, 0)",
+        }}
+        // config={{
+        //   duration: 8000,
+        //   // easing: easings.easeCubicOut,
+        // }}
+      >
+        {(index) => (style) => (
+          <animated.div style={{ ...style }}>{items[index]}</animated.div>
         )}
-      </Container>
-    </div>
+      </Transition>
+
+      <button
+        className="slider_nav_icons prev"
+        disabled={index === 0}
+        onClick={(e) => move(e, "prev")}
+      >
+        <ArrowBackIosIcon />
+      </button>
+      <button
+        className="slider_nav_icons next"
+        disabled={index === items.length - 1}
+        onClick={(e) => move(e, "next")}
+      >
+        <ArrowForwardIosIcon />
+      </button>
+      {isBrowser && bullets && (
+        <SliderNav>
+          {items.map((screen, i) => {
+            const className = i === index ? "active" : ""
+            return (
+              <li
+                {...{ className }}
+                key={`slider-nav-${i}`}
+                onClick={() => handleNavClick(i)}
+              />
+            )
+          })}
+        </SliderNav>
+      )}
+    </Container>
   )
 }
 

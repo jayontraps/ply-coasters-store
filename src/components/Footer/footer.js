@@ -1,15 +1,16 @@
 import React from "react"
 import styled from "@emotion/styled"
 
-const StyledFooter = styled.footer``
+const StyledFooter = styled.footer`
+  background-color: ${({ theme }) => theme.colors.slate};
+`
 
 const Section = styled.div`
   position: relative;
-  z-index: 99999;
   margin: 0 auto;
   background-color: ${({ theme }) => theme.colors.slate};
   color: white;
-  padding-bottom: 3rem;
+  padding: 3rem;
   width: ${({ theme }) => theme.layout.width};
   max-width: ${({ theme }) => theme.layout.maxWidth};
 `

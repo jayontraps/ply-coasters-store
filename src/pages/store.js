@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
+import { BrowserView, MobileView } from "react-device-detect"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { ZoomIn } from "../components/react-spring-animation"
@@ -33,7 +34,6 @@ const Image = () => {
     >
       <ZoomIn>
         <Img
-          backgroundColor
           fluid={image.sharp.fluid}
           objectFit="cover"
           objectPosition="50% 50%"
@@ -57,43 +57,98 @@ export default class extends React.Component {
   scroll = (to) => this.parallax.scrollTo(to)
   render() {
     return (
-      <Layout>
+      <Layout withHero>
         <SEO title="Test" />
         <StyledContainer>
           <Image />
-          <Parallax
-            className="container"
-            ref={(node) => (this.parallax = node)}
-            pages={2}
-          >
-            <ParallaxLayer offset={0}>
-              <span className="scroll_down">
-                <ExpandMoreIcon onClick={() => this.scroll(1)} />
-              </span>
-            </ParallaxLayer>
+          <BrowserView>
+            <Parallax
+              className="container"
+              ref={(node) => (this.parallax = node)}
+              pages={2}
+            >
+              <ParallaxLayer offset={0}>
+                <span className="scroll_down">
+                  <ExpandMoreIcon onClick={() => this.scroll(1)} />
+                </span>
+              </ParallaxLayer>
 
-            <ParallaxLayer offset={1}>
-              <div className="background_page"></div>
-            </ParallaxLayer>
+              <ParallaxLayer offset={1}>
+                <div className="background_page"></div>
+              </ParallaxLayer>
 
-            <ParallaxLayer offset={1.1} speed={0.6}>
-              <div className="collections">
-                <Item to="cork-map-coasters" title="Cork Coasters" />
-                <Item to="cork-map-placemats" title="Cork Placemats" />
+              <div className="wrapper">
+                <ParallaxLayer
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: "16.66%",
+                    width: "33.33%",
+                  }}
+                  offset={1.1}
+                  speed={1}
+                >
+                  <Item to="cork-map-coasters" title="Cork Coasters" />
+                </ParallaxLayer>
+
+                <ParallaxLayer
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: "50%",
+                    width: "33.33%",
+                  }}
+                  offset={1.1}
+                  speed={0.5}
+                >
+                  <Item to="cork-map-placemats" title="Cork Placemats" />
+                </ParallaxLayer>
+
+                <ParallaxLayer
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: 0,
+                    width: "33.33%",
+                  }}
+                  offset={1.6}
+                  speed={2}
+                >
+                  <Item to="ply-map-coasters" title="Ply Map Coasters" />
+                </ParallaxLayer>
+                <ParallaxLayer
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: "33.33%",
+                    width: "33.33%",
+                  }}
+                  offset={1.6}
+                  speed={1.5}
+                >
+                  <Item to="ply-map-placemats" title="Ply Map Placemats" />
+                </ParallaxLayer>
+                <ParallaxLayer
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: "66.66%",
+                    width: "33.33%",
+                  }}
+                  offset={1.6}
+                  speed={1}
+                >
+                  <Item
+                    to="miscellaneous-ply-coasters"
+                    title="Miscellaneous Ply"
+                  />
+                </ParallaxLayer>
               </div>
-            </ParallaxLayer>
-
-            <ParallaxLayer offset={1.5} speed={1.6}>
-              <div className="collections">
-                <Item to="ply-map-coasters" title="Ply Map Coasters" />
-                <Item to="ply-map-placemats" title="Ply Map Placemats" />
-                <Item
-                  to="miscellaneous-ply-coasters"
-                  title="Miscellaneous Ply"
-                />
-              </div>
-            </ParallaxLayer>
-          </Parallax>
+            </Parallax>
+          </BrowserView>
+          <MobileView>
+            <h1>This is the mobile</h1>
+          </MobileView>
         </StyledContainer>
       </Layout>
     )

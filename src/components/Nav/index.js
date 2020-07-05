@@ -5,20 +5,17 @@ import { SpringLink } from "../react-spring-animation"
 const Nav = () => {
   return (
     <StyledNav>
-      <SpringLink activeClassName="current-page" to="/">
-        Home
+      <SpringLink activeClassName="current-page" to="/store">
+        Shop
       </SpringLink>
       <SpringLink activeClassName="current-page" to="/gallery">
         Gallery
       </SpringLink>
-      <SpringLink activeClassName="current-page" to="/store">
-        Store
+      <SpringLink activeClassName="current-page" to="/bar">
+        Stories
       </SpringLink>
-      <SpringLink activeClassName="current-page" to="/test">
-        Test
-      </SpringLink>
-      <SpringLink activeClassName="current-page" to="/detect">
-        detect
+      <SpringLink activeClassName="current-page" to="/contact">
+        Find us
       </SpringLink>
     </StyledNav>
   )

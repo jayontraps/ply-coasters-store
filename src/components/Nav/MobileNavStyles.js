@@ -13,6 +13,12 @@ const StyledMobileNav = styled.div`
     position: absolute;
     right: 1rem;
     top: 1rem;
+    width: calc(60px - 2rem);
+    height: calc(60px - 2rem);
+    background-color: transparent;
+    svg {
+      fill: white;
+    }
   }
 
   a {

@@ -10,8 +10,9 @@ import MobileNav from "../Nav/MobileNav"
 import { StoreContext } from "../../context/StoreContext"
 import StyledHeader from "./styles"
 import { SpringLink } from "../react-spring-animation"
+import { useBelowTheFold } from "../../hooks"
 
-const Header = ({ siteTitle }) => {
+const Header = ({ siteTitle, isHomePage }) => {
   const [mobileNav, setMobileNav] = useState(false)
   const { toggleCartOpen, checkout, isLoading, isCartOpen } = useContext(
     StoreContext
@@ -33,8 +34,13 @@ const Header = ({ siteTitle }) => {
     leave: { opacity: 0 },
   })
 
+  const belowTheFold = useBelowTheFold(false)
+
   return (
-    <StyledHeader {...{ isLoading }} className="header">
+    <StyledHeader
+      {...{ isLoading, belowTheFold, isHomePage }}
+      className="header"
+    >
       <SpringLink to="/" className="branding__link">
         <img src={logo} alt="Level Up Logo" className="branding__logo" />
       </SpringLink>
@@ -57,7 +63,11 @@ const Header = ({ siteTitle }) => {
           className="cart_toggle__btn btn_icon header_btn"
           onClick={toggleCartOpen}
         >
-          {quantity > 0 && <div>{quantity}</div>}
+          {quantity > 0 && (
+            <div className="cart_toggle__quantity">
+              <span>{quantity}</span>
+            </div>
+          )}
           <ShoppingBasketIcon />
         </button>
       </div>

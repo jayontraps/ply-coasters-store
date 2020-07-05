@@ -1,10 +1,12 @@
 import React from "react"
 import { animated } from "react-spring"
 import CloseIcon from "@material-ui/icons/Close"
+import { useScrollFreeze } from "../../hooks"
 import StyledMobileNav from "./MobileNavStyles"
 import { SpringLink } from "../react-spring-animation"
 
 const MobileNav = ({ setMobileNav, style }) => {
+  useScrollFreeze()
   return (
     <animated.div
       style={{

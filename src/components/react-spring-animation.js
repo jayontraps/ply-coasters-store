@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react"
 import { Spring } from "react-spring/renderprops"
 import { useTransition, animated } from "react-spring"
 import TransitionLink, { TransitionState } from "gatsby-plugin-transition-link"
-// import * as easings from "d3-ease"
 
-export const MySpring = ({ children }) => (
+export const PageTransition = ({ children }) => (
   <TransitionState>
     {({ transitionStatus, exit, entry }) => {
       const mount = ["entering", "entered"].includes(transitionStatus)
@@ -12,23 +11,11 @@ export const MySpring = ({ children }) => (
 
       return (
         <Spring
-          // to={{
-          //   transform: `translateX(${mount ? 0 : "100px"})`,
-          //   opacity: mount ? 1 : 0,
-          // }}
-
-          from={
-            {
-              // transform: "translate3d(0%,0,0)",
-            }
-          }
           to={{
             opacity: mount ? 1 : 0,
-            // transform: mount ? "translate3d(0%,0,0)" : "translate3d(75%,0,0)",
           }}
           config={{
             duration: seconds * 800,
-            // easing: easings.easeCubicOut,
           }}
         >
           {(props) => <div style={props}>{children}</div>}
@@ -54,7 +41,7 @@ export const ZoomIn = ({ children }) => {
   const [show, set] = useState(false)
   const transitions = useTransition(show, null, {
     from: { transform: "scale3d(1, 1, 1)" },
-    enter: { transform: "scale3d(1.05, 1.05, 1.05)" },
+    enter: { transform: "scale3d(1.03, 1.03, 1.03)" },
     leave: { transform: "scale3d(1, 1, 1)" },
   })
 
@@ -72,4 +59,4 @@ export const ZoomIn = ({ children }) => {
   )
 }
 
-export default { MySpring, SpringLink, ZoomIn }
+export default { PageTransition, SpringLink, ZoomIn }

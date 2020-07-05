@@ -11,33 +11,49 @@ import AddToCart from "../components/Cart/AddToCart"
 import theme from "../theme/theme"
 
 const {
-  mq: { large },
+  mq: { tabletLandscapeUp },
 } = theme
 
 const StyledProduct = styled.div`
   max-width: ${({ theme }) => theme.layout.productWidth};
-  margin: 3rem auto;
+  margin: 0 auto;
   padding: 3rem 0;
+  img {
+    max-width: none;
+  }
   .column {
     width: 100%;
     padding: 1rem;
   }
 
-  ${large} {
+  ${tabletLandscapeUp} {
     display: flex;
     .column {
       width: 50%;
     }
   }
+
+  .product__desc,
+  .product__price {
+    margin-bottom: 1rem;
+  }
+
+  .product__price {
+    font-weight: bold;
+  }
 `
 const StyledThumbnailNav = styled.ul`
   display: flex;
   padding: 0;
-
   li {
     list-style: none;
     margin-right: 10px;
     margin-top: 10px;
+  }
+  ${tabletLandscapeUp} {
+    li:hover {
+      cursor: pointer;
+    }
   }
 `
 
@@ -56,7 +72,7 @@ const ProductDetailTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <StyledProduct className="product_details">
+      <StyledProduct className="product">
         <div className="column">
           <div>
             <SideBySideMagnifier
@@ -89,9 +105,9 @@ const ProductDetailTemplate = ({ data }) => {
           </StyledThumbnailNav>
         </div>
         <div className="column">
-          <h1 className="title">{product.title}</h1>
-          <p className="subtitle is-4">${firstVariant.price}</p>
-          <p>{product.description}</p>
+          <h1 className="product__title">{product.title}</h1>
+          <p className="product__price">£{firstVariant.price}</p>
+          <p className="product__desc">{product.description}</p>
           <AddToCart variantId={firstVariant.shopifyId} />
         </div>
       </StyledProduct>

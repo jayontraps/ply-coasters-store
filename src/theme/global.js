@@ -9,6 +9,11 @@ const globalStyles = () => {
       margin: 0;
     }
 
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
     body,
     html {
       color: ${colors.primary};
@@ -17,11 +22,16 @@ const globalStyles = () => {
       font-family: ${fonts.family};
     }
 
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.7;
+    }
+
     .button {
       appearance: none;
       border: 0;
       outline: none;
-      display: block;
+      display: inline-block;
       padding: 1em;
       &:hover {
         cursor: pointer;
