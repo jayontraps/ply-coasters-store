@@ -5,8 +5,9 @@ import { isMobile } from "react-device-detect"
 import { StoreContext } from "../../context/StoreContext"
 import LineItem from "./LineItem"
 import StyledCart from "./StyledCart"
-// import { useScrollFreeze } from "../../hooks"
+import { useScrollFreeze } from "../../hooks"
 import Coupon from "./Coupon"
+import LoadingSpinner from "../LoadingSpinner"
 
 const Cart = ({ style }) => {
   const {
@@ -18,12 +19,13 @@ const Cart = ({ style }) => {
     checkCoupon,
     removeCoupon,
   } = useContext(StoreContext)
-
+  useScrollFreeze()
   return (
     <animated.div
       style={{
         zIndex: 100,
         position: "fixed",
+        overflow: "auto",
         top: 0,
         right: 0,
         width: isMobile ? "100%" : "50%",
@@ -66,11 +68,15 @@ const Cart = ({ style }) => {
 
             <div className="cart__footer">
               <Coupon {...{ checkout, checkCoupon, removeCoupon }} />
-              <hr />
-              <div>
-                Total: <h5 className="title">${checkout.totalPrice}</h5>
-              </div>
-              <div style={{ marginTop: "2rem" }}>
+
+              <h5 className="total__title">
+                Total:{" "}
+                <span className="total__price">
+                  {isLoading ? <LoadingSpinner /> : `£${checkout.totalPrice}`}
+                </span>
+              </h5>
+
+              <div className="buy_btn_wrapper">
                 <a href={checkout.webUrl} className="buy_btn button btn_icon">
                   Checkout
                 </a>

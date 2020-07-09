@@ -38,7 +38,7 @@ const StyledLeadModule = styled.div`
   overflow: auto;
   &.hidden,
   &.visible {
-    transition: opacity 500ms ease-in, transform 500ms ease-in;
+    transition: opacity 600ms ease-out, transform 600ms ease-out;
     will-change: opacity;
     opacity: 0;
     transform: translateY(150px);
@@ -55,39 +55,18 @@ const StyledLeadModule = styled.div`
   }
   p {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 2rem auto;
   }
 `
 
 const isBrowser = typeof window !== "undefined"
 
-const GalleryPage = ({ location }) => {
+const IndexPage = ({ location }) => {
   const [isInViewport, sliderEl] = useIsInViewport()
-  const data = useStaticQuery(graphql`
+  const { image } = useStaticQuery(graphql`
     query {
-      image1: file(relativePath: { eq: "images-full-screen-4.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 1800) {
-            ...GatsbyImageSharpFluid_withWebp
-          }
-        }
-      }
-      image2: file(relativePath: { eq: "images-full-screen-1.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 1800) {
-            ...GatsbyImageSharpFluid_withWebp
-          }
-        }
-      }
-      image3: file(relativePath: { eq: "images-full-screen-5.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 1800) {
-            ...GatsbyImageSharpFluid_withWebp
-          }
-        }
-      }
-      image4: file(relativePath: { eq: "images-full-screen-6.jpg" }) {
-        childImageSharp {
+      image: file(relativePath: { eq: "images-full-screen-4.jpg" }) {
+        sharp: childImageSharp {
           fluid(maxWidth: 1800) {
             ...GatsbyImageSharpFluid_withWebp
           }
@@ -132,20 +111,6 @@ const GalleryPage = ({ location }) => {
     }
   }
 
-  const arr = [1, 2, 3, 4].map((item, index) => {
-    return (
-      <Img
-        backgroundColor
-        fluid={data[`image${item}`].childImageSharp.fluid}
-        objectFit="cover"
-        objectPosition="50% 50%"
-        style={{
-          height: "94vh",
-        }}
-      />
-    )
-  })
-
   return (
     <Layout isHomePage withHero>
       <SEO title="Home" />
@@ -159,7 +124,15 @@ const GalleryPage = ({ location }) => {
         }}
       >
         <ZoomIn>
-          <Slider items={arr} />
+          <Img
+            backgroundColor
+            fluid={image.sharp.fluid}
+            objectFit="cover"
+            objectPosition="50% 50%"
+            style={{
+              height: "94vh",
+            }}
+          />
         </ZoomIn>
         <StyledScrollDown onClick={scrollToContent} />
       </div>
@@ -176,6 +149,9 @@ const GalleryPage = ({ location }) => {
             consequuntur voluptas similique inventore molestias, neque quia ut
             illo quasi est assumenda recusandae eaque.
           </p>
+          <SliderSection>
+            <Slider items={items} />
+          </SliderSection>
         </StyledLeadModule>
         <Collections />
       </Container>
@@ -183,4 +159,4 @@ const GalleryPage = ({ location }) => {
   )
 }
 
-export default GalleryPage
+export default IndexPage

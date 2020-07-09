@@ -132,12 +132,12 @@ const Slider = ({ items, bullets = false }) => {
         items={index}
         from={{
           opacity: 0.5,
-          transform:
-            direction === "init"
-              ? "translate3d(0%, 0, 0)"
-              : direction === FORWARD
-              ? "translate3d(50%, 0 ,0)"
-              : "translate3d(-50%, 0 ,0)",
+          // transform:
+          //   direction === "init"
+          //     ? "translate3d(0%, 0, 0)"
+          //     : direction === FORWARD
+          //     ? "translate3d(50%, 0 ,0)"
+          //     : "translate3d(-50%, 0 ,0)",
         }}
         enter={{
           opacity: 1,
@@ -145,10 +145,10 @@ const Slider = ({ items, bullets = false }) => {
         }}
         leave={{
           opacity: 0.5,
-          transform:
-            direction === FORWARD
-              ? "translate3d(-25%, 0, 0)"
-              : "translate3d(+25%, 0, 0)",
+          // transform:
+          //   direction === FORWARD
+          //     ? "translate3d(-25%, 0, 0)"
+          //     : "translate3d(+25%, 0, 0)",
         }}
         // config={{
         //   duration: 8000,

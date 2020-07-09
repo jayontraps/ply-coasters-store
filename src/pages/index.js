@@ -38,14 +38,12 @@ const StyledLeadModule = styled.div`
   overflow: auto;
   &.hidden,
   &.visible {
-    transition: opacity 600ms ease-out, transform 600ms ease-out;
+    transition: opacity 500ms ease-in;
     will-change: opacity;
     opacity: 0;
-    transform: translateY(150px);
   }
   &.visible {
     opacity: 1;
-    transform: translateY(0px);
   }
   h1 {
     max-width: 500px;
@@ -55,18 +53,41 @@ const StyledLeadModule = styled.div`
   }
   p {
     max-width: 600px;
-    margin: 0 auto 2rem auto;
+    margin: 0 auto;
   }
 `
 
 const isBrowser = typeof window !== "undefined"
 
-const IndexPage = ({ location }) => {
-  const [isInViewport, sliderEl] = useIsInViewport()
-  const { image } = useStaticQuery(graphql`
+const IndexPage = () => {
+  const [isInViewport, sliderEl] = useIsInViewport({
+    modTop: "100px",
+  })
+  const data = useStaticQuery(graphql`
     query {
-      image: file(relativePath: { eq: "images-full-screen-4.jpg" }) {
-        sharp: childImageSharp {
+      image1: file(relativePath: { eq: "images-full-screen-4.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1800) {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+        }
+      }
+      image2: file(relativePath: { eq: "images-full-screen-1.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1800) {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+        }
+      }
+      image3: file(relativePath: { eq: "images-full-screen-5.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1800) {
+            ...GatsbyImageSharpFluid_withWebp
+          }
+        }
+      }
+      image4: file(relativePath: { eq: "images-full-screen-6.jpg" }) {
+        childImageSharp {
           fluid(maxWidth: 1800) {
             ...GatsbyImageSharpFluid_withWebp
           }
@@ -111,6 +132,20 @@ const IndexPage = ({ location }) => {
     }
   }
 
+  const arr = [1, 2, 3, 4].map((item, index) => {
+    return (
+      <Img
+        backgroundColor
+        fluid={data[`image${item}`].childImageSharp.fluid}
+        objectFit="cover"
+        objectPosition="50% 50%"
+        style={{
+          height: "94vh",
+        }}
+      />
+    )
+  })
+
   return (
     <Layout isHomePage withHero>
       <SEO title="Home" />
@@ -124,34 +159,20 @@ const IndexPage = ({ location }) => {
         }}
       >
         <ZoomIn>
-          <Img
-            backgroundColor
-            fluid={image.sharp.fluid}
-            objectFit="cover"
-            objectPosition="50% 50%"
-            style={{
-              height: "94vh",
-            }}
-          />
+          <Slider items={arr} />
         </ZoomIn>
         <StyledScrollDown onClick={scrollToContent} />
       </div>
 
       <Container>
-        <StyledLeadModule
-          ref={sliderEl}
-          className={isInViewport ? "visible" : "hidden"}
-        >
+        <StyledLeadModule className={isInViewport ? "visible" : "hidden"}>
           <h1>Handmade vintage flavour hipster retro maps Minim ullamco</h1>
-          <p>
+          <p ref={sliderEl}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
             officiis incidunt officia, aliquid beatae reiciendis doloribus
             consequuntur voluptas similique inventore molestias, neque quia ut
             illo quasi est assumenda recusandae eaque.
           </p>
-          <SliderSection>
-            <Slider items={items} />
-          </SliderSection>
         </StyledLeadModule>
         <Collections />
       </Container>

@@ -92,6 +92,7 @@ const StyledHeader = styled.header`
     flex-direction: row-reverse;
     justify-content: space-between;
     ${large} {
+      width: calc(60px - 2rem);
       position: absolute;
       right: 1rem;
     }

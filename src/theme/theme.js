@@ -2,6 +2,7 @@ const theme = {
   mq: {
     small: "@media (max-width: 480px)",
     tabletLandscapeUp: "@media (min-width: 769px)",
+    mediumOnly: "@media (min-width: 481px) and (max-width: 1028px)",
     medium: "@media (min-width: 481px)",
     large: "@media (min-width: 1029px)",
   },
@@ -17,6 +18,13 @@ const theme = {
     slate: "#20232f",
     darkSlate: "#1f1919",
     active: "#FF9F00",
+    borderColor: "rgba(75, 75, 75, .25)",
+    dark_green: "#155147",
+    dark_green_grey: "#454E4C",
+    dark_brown: "#8B7262",
+    dark_blue: "#053551",
+    red: "#410C12",
+    pink: "#CE917E",
   },
   fonts: {
     family: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

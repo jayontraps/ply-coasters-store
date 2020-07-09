@@ -10,7 +10,8 @@ const {
 
 const StyledCollections = styled.div`
   background-color: ${({ theme }) => theme.colors.bgColor};
-  padding: 2rem;
+  padding: 2rem 2rem 4rem 2rem;
+
   .inner {
     max-width: ${({ theme }) => theme.layout.maxWidth};
     margin: 0 auto;
@@ -42,7 +43,8 @@ const StyledCard = styled.div`
     transition-delay: ${({ delay }) => delay}ms;
     will-change: opacity;
     opacity: 0;
-    transform: translateY(150px);
+    transform: ${({ withTranslate }) =>
+      withTranslate ? "translateY(150px)" : "translateY(0px)"};
   }
   &.visible {
     opacity: 1;
@@ -106,6 +108,7 @@ const Collections = ({ style }) => {
         </div>
         <div className="row">
           <StyledCard
+            withTranslate
             delay={80}
             ref={thirdCard}
             className={`${thirdCardInViewClass}`}
@@ -113,6 +116,7 @@ const Collections = ({ style }) => {
             <CollectionCard to="ply-map-coasters" title="Ply Map Coasters" />
           </StyledCard>
           <StyledCard
+            withTranslate
             delay={160}
             ref={fourthCard}
             className={`${fourthCardInViewClass}`}
@@ -120,6 +124,7 @@ const Collections = ({ style }) => {
             <CollectionCard to="ply-map-placemats" title="Ply Map Placemats" />
           </StyledCard>
           <StyledCard
+            withTranslate
             delay={240}
             ref={fifthCard}
             className={`${fifthCardInViewClass}`}
