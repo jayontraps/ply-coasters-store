@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import useIsInViewport from "use-is-in-viewport"
 import styled from "@emotion/styled"

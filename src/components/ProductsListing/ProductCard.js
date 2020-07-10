@@ -17,7 +17,6 @@ const StyledCard = styled(SpringLink)`
 const ProductCard = ({ product }) => {
   const {
     images: [firstImage],
-    variants: [firstVariant],
   } = product
   return (
     <StyledCard

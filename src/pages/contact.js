@@ -72,7 +72,7 @@ const Event = ({ event }) => {
       {`, `}
       {linkText && (
         <span className="event-link">
-          <a href={url} target="_blank">
+          <a href={url} target="_blank" rel="noreferrer">
             {linkText}
           </a>
           {`, `}
@@ -131,12 +131,35 @@ const Content = () => {
               </button>
 
               <h2>Contact from</h2>
-              <ul>
-                <li>List item</li>
-                <li>List item</li>
-                <li>List item</li>
-                <li>List item</li>
-              </ul>
+              <form name="contact" method="POST" data-netlify="true">
+                <p>
+                  <label>
+                    Your Name: <input type="text" name="name" />
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    Your Email: <input type="email" name="email" />
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    Your Role:{" "}
+                    <select name="role[]" multiple>
+                      <option value="leader">Leader</option>
+                      <option value="follower">Follower</option>
+                    </select>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    Message: <textarea name="message"></textarea>
+                  </label>
+                </p>
+                <p>
+                  <button type="submit">Send</button>
+                </p>
+              </form>
             </animated.div>
           )
         )}

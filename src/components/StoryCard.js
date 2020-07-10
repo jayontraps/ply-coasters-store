@@ -207,7 +207,7 @@ const StoryCard = ({ card }) => {
     return () => {
       cardRef.current.removeEventListener(transitionEndEventName, closeFlipped)
     }
-  }, [isFlipped])
+  }, [isFlipped, closeFlipped])
 
   function flip(e) {
     e.stopPropagation()

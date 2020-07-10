@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { animated } from "react-spring"
 import CloseIcon from "@material-ui/icons/Close"
 import { isMobile } from "react-device-detect"

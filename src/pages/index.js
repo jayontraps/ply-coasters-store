@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import useIsInViewport from "use-is-in-viewport"
 import styled from "@emotion/styled"
@@ -18,11 +18,6 @@ const Container = styled.div`
   position: relative;
   z-index: 9999;
   background-color: ${({ theme }) => theme.colors.bgColor};
-`
-
-const SliderSection = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
 `
 
 const StyledScrollDown = styled(ScrollDown)`
@@ -95,27 +90,6 @@ const IndexPage = () => {
       }
     }
   `)
-
-  const sliderImages = [
-    "images-full-screen-1.jpg",
-    "images-full-screen-5.jpg",
-    "images-full-screen-6.jpg",
-    "teacup-full-screen-compressor.jpg",
-  ]
-
-  const ImageDiv = styled("div")`
-    width: 100%;
-    padding-bottom: 66.66%;
-    background-size: cover;
-  `
-
-  const items = sliderImages.map((img) => (
-    <ImageDiv
-      style={{
-        backgroundImage: `url(/img/${img})`,
-      }}
-    />
-  ))
 
   function scrollToContent() {
     if (isBrowser) {
