@@ -7,6 +7,7 @@ import Layout from "../components/layout"
 import CloseIcon from "@material-ui/icons/Close"
 import SEO from "../components/seo"
 import { ZoomIn } from "../components/react-spring-animation"
+import ContactForm from "../components/ContactForm"
 
 const StyledContent = styled.div`
   width: 100vw;
@@ -72,7 +73,7 @@ const Event = ({ event }) => {
       {`, `}
       {linkText && (
         <span className="event-link">
-          <a href={url} target="_blank" rel="noreferrer">
+          <a href={url} target="_blank">
             {linkText}
           </a>
           {`, `}
@@ -131,35 +132,7 @@ const Content = () => {
               </button>
 
               <h2>Contact from</h2>
-              <form name="contact" method="POST" data-netlify="true">
-                <p>
-                  <label>
-                    Your Name: <input type="text" name="name" />
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Your Email: <input type="email" name="email" />
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Your Role:{" "}
-                    <select name="role[]" multiple>
-                      <option value="leader">Leader</option>
-                      <option value="follower">Follower</option>
-                    </select>
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    Message: <textarea name="message"></textarea>
-                  </label>
-                </p>
-                <p>
-                  <button type="submit">Send</button>
-                </p>
-              </form>
+              <ContactForm />
             </animated.div>
           )
         )}
