@@ -1,6 +1,7 @@
 const theme = {
   mq: {
     small: "@media (max-width: 480px)",
+    smallToTabletLandscap: "@media (max-width: 768px)",
     tabletLandscapeUp: "@media (min-width: 769px)",
     mediumOnly: "@media (min-width: 481px) and (max-width: 1028px)",
     medium: "@media (min-width: 481px)",
@@ -10,12 +11,22 @@ const theme = {
     innerWidth: "800px",
     maxWidth: "1200px",
     productWidth: "1080px",
+    leaderWidth: "800px",
     width: "95%",
+  },
+  spacing: {
+    section: "4rem",
+    gridGap: "2rem",
+  },
+  animation: {
+    duration: "700ms",
+    easing: "ease-out",
   },
   colors: {
     bgColor: "#F8E1B6",
     primary: "#17181A",
     slate: "#20232f",
+    slateTrans: "rgba(32, 35, 47, 0.4)",
     darkSlate: "#1f1919",
     active: "#FF9F00",
     borderColor: "rgba(75, 75, 75, .25)",
@@ -27,7 +38,7 @@ const theme = {
     pink: "#CE917E",
   },
   fonts: {
-    family: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    family: `Raleway, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol"`,
   },

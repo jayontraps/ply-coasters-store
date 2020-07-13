@@ -25,17 +25,14 @@ const StyledContainer = styled.div`
     }
   }
 
-  .item {
+  /* .item {
     max-width: 300px;
     margin-right: 5%;
+    display: flex;
+    flex-direction: column;
     &:last-of-type {
       margin-right: 0;
     }
-  }
-
-  .item {
-    display: flex;
-    flex-direction: column;
   }
 
   .item_image {
@@ -44,17 +41,19 @@ const StyledContainer = styled.div`
     background-color: ${({ theme }) => theme.colors.slate};
   }
 
-  a {
-    text-decoration: none;
-  }
-
   .item_title {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 1rem;
+  } */
+
+  a {
+    text-decoration: none;
   }
+
+ 
 
   .scroll_down {
     position: absolute;

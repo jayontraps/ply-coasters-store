@@ -10,28 +10,36 @@ const StyledHeader = styled.header`
   z-index: 99999;
   width: 100%;
   height: 60px;
-
-  background-color: ${(props) =>
-    props.isHomePage
-      ? props.belowTheFold
-        ? props.theme.colors.darkSlate
-        : "transparent"
-      : props.theme.colors.darkSlate};
-
+  background-color: ${({ withHero, scrolledBellowHero, theme }) =>
+    scrolledBellowHero
+      ? theme.colors.slate
+      : withHero
+      ? theme.colors.slateTrans
+      : theme.colors.slate};
   padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   transition: background-color, 150ms ease-in;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${large} {
-    padding: 1rem 4rem 1rem 1rem;
+    padding: 1rem 4rem 1rem 4rem;
+  }
+
+  .header__inner {
+    width: 100%;
+    max-width: ${({ theme }) => theme.layout.maxWidth};
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .branding {
     &__logo {
       width: 100%;
       height: auto;
+      opacity: ${({ isHomePage, scrolledBellowHero }) =>
+        isHomePage ? (scrolledBellowHero ? `1` : `0`) : `1`};
     }
 
     &__link {

@@ -189,7 +189,7 @@ const StyledCardGrid = styled.div`
 
 const StoriesPage = () => {
   return (
-    <Layout isHomePage withHero>
+    <Layout withHero>
       <SEO title="Stories" />
       <StyledCardGrid className="cardgrid">
         <div className="card card__1">

@@ -19,11 +19,11 @@ const StyledContent = styled.div`
     z-index: 9;
     top: 50%;
     left: 50%;
-    width: 600px;
+    width: 650px;
     min-height: 40vh;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 2rem;
-    text-align: left;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,7 +86,7 @@ const Thanks = () => {
   `)
 
   return (
-    <Layout isHomePage withHero>
+    <Layout withHero>
       <SEO title="Thank you" />
       <div
         style={{

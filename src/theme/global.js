@@ -4,6 +4,7 @@ import theme from "./theme"
 const globalStyles = () => {
   const { colors, fonts } = theme
   return css`
+    @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap");
     * {
       box-sizing: border-box;
       margin: 0;
@@ -44,13 +45,54 @@ const globalStyles = () => {
       align-items: center;
     }
 
-    ${"" /* .tl-wrapper-status--exiting {
-    z-index: 100 !important;
-    > div {
-      position: relative;
-      z-index: 100 !important;
+    .animated {
+      animation-duration: 1s;
+      animation-fill-mode: both;
     }
-  } */}
+
+    .animated.infinite {
+      animation-iteration-count: infinite;
+    }
+
+    .animated.hinge {
+      animation-duration: 2s;
+    }
+
+    .animated.bounceIn,
+    .animated.bounceOut {
+      animation-duration: 0.75s;
+    }
+
+    .animated.flipOutX,
+    .animated.flipOutY {
+      animation-duration: 0.75s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translate3d(-500%, 0, 0);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .fadeInLeft {
+      animation-name: fadeInLeft;
+    }
   `
 }
 

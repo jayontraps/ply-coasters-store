@@ -1,5 +1,27 @@
 import React from "react"
 import { navigate } from "gatsby-link"
+import styled from "@emotion/styled"
+
+const StyledContactForm = styled.form`
+  fieldset {
+    appearance: none;
+    border: none;
+    padding: 0;
+  }
+
+  input[type="email"],
+  input[type="text"],
+  textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    background: #fff;
+    margin: 0 0 1rem;
+    padding: 10px;
+  }
+  label {
+    text-indent: -999rem;
+  }
+`
 
 function encode(data) {
   return Object.keys(data)
@@ -30,7 +52,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form
+    <StyledContactForm
       name="contact"
       method="post"
       action="/thanks/"
@@ -46,30 +68,40 @@ export default function ContactForm() {
           <input name="bot-field" onChange={handleChange} />
         </label>
       </p>
-      <p>
+      <fieldset className="field">
         <label>
-          Your name:
-          <br />
-          <input type="text" name="name" onChange={handleChange} />
+          <input
+            placeholder="Your name"
+            type="text"
+            name="name"
+            onChange={handleChange}
+          />
         </label>
-      </p>
-      <p>
+      </fieldset>
+      <fieldset className="field">
         <label>
-          Your email:
-          <br />
-          <input type="email" name="email" onChange={handleChange} />
+          <input
+            placeholder="Your email"
+            type="email"
+            name="email"
+            onChange={handleChange}
+          />
         </label>
-      </p>
-      <p>
+      </fieldset>
+      <fieldset className="field">
         <label>
-          Message:
-          <br />
-          <textarea name="message" onChange={handleChange} />
+          <textarea
+            placeholder="Your message"
+            name="message"
+            onChange={handleChange}
+          />
         </label>
-      </p>
+      </fieldset>
       <p>
-        <button type="submit">Send</button>
+        <button className="button contact_form_btn" type="submit">
+          Send
+        </button>
       </p>
-    </form>
+    </StyledContactForm>
   )
 }

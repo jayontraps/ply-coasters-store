@@ -1,7 +1,7 @@
 import React from "react"
+import { graphql, useStaticQuery } from "gatsby"
 import styled from "@emotion/styled"
-import useIsInViewport from "use-is-in-viewport"
-import { SpringLink } from "./react-spring-animation"
+import CollectionCard from "./CollectionCard"
 import theme from "../theme/theme"
 
 const {
@@ -10,132 +10,112 @@ const {
 
 const StyledCollections = styled.div`
   background-color: ${({ theme }) => theme.colors.bgColor};
-  padding: 2rem 2rem 4rem 2rem;
 
-  .inner {
-    max-width: ${({ theme }) => theme.layout.maxWidth};
-    margin: 0 auto;
-    ${tabletLandscapeUp} {
-      .row {
-        display: flex;
-        justify-content: center;
-      }
-    }
+  .item__1 {
+    grid-area: one;
   }
-`
+  .item__2 {
+    grid-area: two;
+  }
+  .item__3 {
+    grid-area: three;
+  }
+  .item__4 {
+    grid-area: four;
+  }
+  .item__5 {
+    grid-area: five;
+  }
 
-const CollectionCard = ({ to, title }) => {
-  return (
-    <SpringLink to={`/${to}`} className={`item`}>
-      <div className="item_image"></div>
-      <div className="item_title">{title}</div>
-    </SpringLink>
-  )
-}
-
-const StyledCard = styled.div`
-  max-width: 300px;
-  display: block;
-  margin: 0 auto 2rem auto;
-  &.hidden,
-  &.visible {
-    transition: opacity 700ms ease-out, transform 700ms ease-out;
-    transition-delay: ${({ delay }) => delay}ms;
-    will-change: opacity;
-    opacity: 0;
-    transform: ${({ withTranslate }) =>
-      withTranslate ? "translateY(150px)" : "translateY(0px)"};
-  }
-  &.visible {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+  margin: 0 auto ${({ theme }) => theme.spacing.section} auto;
+  width: 90%;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
 
   ${tabletLandscapeUp} {
-    margin: 1.5rem;
-  }
-
-  .item_image {
-    padding-top: 100%;
-    background-color: ${({ theme }) => theme.colors.slate};
-    ${tabletLandscapeUp} {
-      min-width: 240px;
-    }
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  .item_title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
+    width: 100%;
+    display: grid;
+    grid-gap: ${({ theme }) => theme.spacing.gridGap};
+    grid-template-areas:
+      "one one one two two two"
+      "three three four four five five";
   }
 `
 
 const Collections = ({ style }) => {
-  const [firstCardInView, firstCard] = useIsInViewport()
-  const firstCardInViewClass = firstCardInView ? "visible" : "hidden"
-  const [secondCardInView, secondCard] = useIsInViewport()
-  const secondCardInViewClass = secondCardInView ? "visible" : "hidden"
-  const [thirdCardInView, thirdCard] = useIsInViewport()
-  const thirdCardInViewClass = thirdCardInView ? "visible" : "hidden"
-  const [fourthCardInView, fourthCard] = useIsInViewport()
-  const fourthCardInViewClass = fourthCardInView ? "visible" : "hidden"
-  const [fifthCardInView, fifthCard] = useIsInViewport()
-  const fifthCardInViewClass = fifthCardInView ? "visible" : "hidden"
+  const data = useStaticQuery(graphql`
+    query {
+      allShopifyCollection {
+        edges {
+          node {
+            title
+            handle
+            image {
+              localFile {
+                childImageSharp {
+                  fluid(maxWidth: 400) {
+                    ...GatsbyImageSharpFluid_withWebp
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const corkCollection = ["Cork Map Coasters", "Cork Map Placemats"].map(
+    (title) =>
+      data.allShopifyCollection.edges.filter(
+        (edge) => edge.node.title === title
+      )[0].node
+  )
+
+  const plyCollection = [
+    "Ply Map Coasters",
+    "Ply Map Placemats",
+    "Miscellaneous Ply coasters",
+  ].map(
+    (title) =>
+      data.allShopifyCollection.edges.filter(
+        (edge) => edge.node.title === title
+      )[0].node
+  )
+
   return (
     <StyledCollections className={`collection`}>
-      <div className="inner">
-        <div className="row">
-          <StyledCard
-            delay={0}
-            ref={firstCard}
-            className={`${firstCardInViewClass}`}
-          >
-            <CollectionCard to="cork-map-coasters" title="Cork Coasters" />
-          </StyledCard>
-          <StyledCard
-            delay={0}
-            ref={secondCard}
-            className={`${secondCardInViewClass}`}
-          >
-            <CollectionCard to="cork-map-placemats" title="Cork Placemats" />
-          </StyledCard>
-        </div>
-        <div className="row">
-          <StyledCard
-            withTranslate
-            delay={80}
-            ref={thirdCard}
-            className={`${thirdCardInViewClass}`}
-          >
-            <CollectionCard to="ply-map-coasters" title="Ply Map Coasters" />
-          </StyledCard>
-          <StyledCard
-            withTranslate
-            delay={160}
-            ref={fourthCard}
-            className={`${fourthCardInViewClass}`}
-          >
-            <CollectionCard to="ply-map-placemats" title="Ply Map Placemats" />
-          </StyledCard>
-          <StyledCard
-            withTranslate
-            delay={240}
-            ref={fifthCard}
-            className={`${fifthCardInViewClass}`}
-          >
-            <CollectionCard
-              to="miscellaneous-ply-coasters"
-              title="Miscellaneous Ply"
-            />
-          </StyledCard>
-        </div>
-      </div>
+      <CollectionCard
+        delay={0}
+        className={`item__1`}
+        collection={corkCollection[0]}
+      />
+
+      <CollectionCard
+        delay={0}
+        className={`item__2`}
+        collection={corkCollection[1]}
+      />
+
+      <CollectionCard
+        withTranslate
+        delay={80}
+        className={`item__3`}
+        collection={plyCollection[0]}
+      />
+
+      <CollectionCard
+        withTranslate
+        delay={160}
+        className={`item__4`}
+        collection={plyCollection[1]}
+      />
+
+      <CollectionCard
+        withTranslate
+        delay={240}
+        className={`item__5`}
+        collection={plyCollection[2]}
+      />
     </StyledCollections>
   )
 }

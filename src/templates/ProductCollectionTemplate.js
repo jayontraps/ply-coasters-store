@@ -1,22 +1,19 @@
 import React from "react"
 import styled from "@emotion/styled"
 import { graphql } from "gatsby"
-import Img from "gatsby-image"
 import Layout from "../components/layout"
 import ProductCard from "../components/ProductsListing/ProductCard"
 import theme from "../theme/theme"
 import SEO from "../components/seo"
-import { ZoomIn } from "../components/react-spring-animation"
-import ScrollDown from "../components/ScrollDown"
+import Hero from "../components/Hero"
 
 const {
   mq: { tabletLandscapeUp },
 } = theme
 
-const isBrowser = typeof window !== "undefined"
+const viewportHeight = 66.66
 
 const Container = styled.div`
-  margin-top: 94vh;
   min-height: 100vh;
   overflow-y: hidden;
   width: 100vw;
@@ -29,22 +26,14 @@ const StyledProductGrid = styled.div`
   width: calc(100% - 2rem);
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
-  h1 {
-    margin-bottom: 1rem;
-  }
+  padding-top: 3rem;
   .product-grid {
     ${tabletLandscapeUp} {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-gap: 3rem;
     }
   }
-`
-
-const StyledScrollDown = styled(ScrollDown)`
-  position: absolute;
-  left: calc(50% - 20px);
-  top: calc(94vh - 130px);
 `
 
 const ProductCategoriesTemplate = ({ data }) => {
@@ -57,49 +46,17 @@ const ProductCategoriesTemplate = ({ data }) => {
     },
   } = shopifyCollection
 
-  function scrollToContent() {
-    if (isBrowser) {
-      const theFold = Math.max(
-        document.documentElement.clientHeight || 0,
-        window.innerHeight || 0
-      )
-      const offSet = 115
-
-      window.scrollTo({
-        top: theFold - offSet,
-        behavior: "smooth",
-      })
-    }
-  }
-
   return (
     <Layout withHero>
       <SEO title={shopifyCollection.title} />
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          width: "100vw",
-          height: "94vh",
-          overflow: "hidden",
-        }}
-      >
-        <ZoomIn>
-          <Img
-            backgroundColor
-            fluid={fluid}
-            objectFit="cover"
-            objectPosition="50% 50%"
-            style={{
-              height: "94vh",
-            }}
-          />
-        </ZoomIn>
-        <StyledScrollDown onClick={scrollToContent} />
-      </div>
+      <Hero
+        viewportHeight={viewportHeight}
+        title={shopifyCollection.title}
+        image={fluid}
+      />
+
       <Container>
         <StyledProductGrid>
-          <h1>{shopifyCollection.title}</h1>
           <div className="product-grid">
             {shopifyCollection.products.map((product) => (
               <ProductCard key={product.id} product={product} />

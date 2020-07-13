@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react"
 import styled from "@emotion/styled"
 import { isBrowser } from "react-device-detect"
 import { Transition, animated } from "react-spring/renderprops"
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos"
 import { useKeyPress } from "../hooks"
+import Icon from "./Icon"
 
 /* eslint-disable */
 
@@ -41,6 +40,9 @@ const Container = styled("div")`
       display: block;
       width: 100%;
       height: 100%;
+      stroke: white;
+      stroke-width: 10px;
+      fill: none;
       &:hover {
         cursor: pointer;
       }
@@ -165,14 +167,16 @@ const Slider = ({ items, bullets = false }) => {
         disabled={index === 0}
         onClick={(e) => move(e, "prev")}
       >
-        <ArrowBackIosIcon />
+        {/* <ArrowBackIosIcon /> */}
+        <Icon name="arrow-prev" />
       </button>
       <button
         className="slider_nav_icons next"
         disabled={index === items.length - 1}
         onClick={(e) => move(e, "next")}
       >
-        <ArrowForwardIosIcon />
+        {/* <ArrowForwardIosIcon /> */}
+        <Icon name="arrow-next" />
       </button>
       {isBrowser && bullets && (
         <SliderNav>

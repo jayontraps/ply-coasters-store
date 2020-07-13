@@ -7,10 +7,6 @@ import { Parallax, ParallaxLayer } from "react-spring/renderprops-addons"
 import { ZoomIn } from "../components/react-spring-animation"
 
 const StyledContainer = styled.div`
-  /* .container {
-    background-color: black;
-    margin-top: 100vh;
-  } */
   .container > div > div {
     display: flex;
     align-items: center;

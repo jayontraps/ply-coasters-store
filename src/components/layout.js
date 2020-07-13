@@ -15,7 +15,7 @@ const StyledLayout = styled.div`
   background-color: ${({ theme }) => theme.colors.bgColor};
 `
 
-const Layout = ({ children, isHomePage = false, withHero = false }) => {
+const Layout = ({ children, withHero = false, isHomePage = false }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -30,7 +30,7 @@ const Layout = ({ children, isHomePage = false, withHero = false }) => {
     <>
       <Global styles={globalStyles} />
       <Header
-        isHomePage={isHomePage}
+        {...{ withHero, isHomePage }}
         siteTitle={data.site.siteMetadata.title}
       />
       <PageTransition>

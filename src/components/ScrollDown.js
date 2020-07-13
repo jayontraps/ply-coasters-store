@@ -4,11 +4,11 @@ import Icon from "./Icon"
 
 const StyledScrollDown = styled.span`
   display: block;
-  width: 50px;
+  width: 40px;
   transform: rotate(90deg);
   svg {
     stroke: white;
-    stroke-width: 5px;
+    stroke-width: 7px;
     fill: none;
     display: inline-block;
     width: 100%;

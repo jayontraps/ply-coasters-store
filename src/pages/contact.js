@@ -21,21 +21,51 @@ const StyledContent = styled.div`
     z-index: 9;
     top: 50%;
     left: 50%;
-    width: 600px;
+    width: 650px;
     min-height: 40vh;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 2rem;
-    text-align: left;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     transform-origin: center center;
     will-change: transform;
+
     .close_panel {
       position: absolute;
       right: 1rem;
       top: 1rem;
+      background-color: transparent;
+    }
+
+    h1,
+    ul {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: ${({ theme }) => theme.colors.dark_green};
+      text-decoration: underline;
+    }
+
+    ul {
+      padding-left: 1rem;
+    }
+  }
+
+  .contact_form_btn {
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    background: ${({ theme }) => theme.colors.dark_green};
+    color: #fbfbfb;
+    margin: 0;
+    box-shadow: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    &:hover {
+      background: #0b2924;
+      color: #fbfbfb;
+      transition: background-color 0.3s ease-in-out;
     }
   }
 `
@@ -73,7 +103,7 @@ const Event = ({ event }) => {
       {`, `}
       {linkText && (
         <span className="event-link">
-          <a href={url} target="_blank">
+          <a href={url} target="_blank" rel="noreferrer">
             {linkText}
           </a>
           {`, `}
@@ -88,9 +118,9 @@ const Event = ({ event }) => {
 const Content = () => {
   const [showForm, setShowForm] = useState(false)
   const transitions = useTransition(!showForm, null, {
-    from: { opacity: 0, transform: "translate(-50%, -50%) scale(0.5)" },
+    from: { opacity: 0, transform: "translate(-50%, -50%) scale(0.8)" },
     enter: { opacity: 1, transform: "translate(-50%, -50%) scale(1)" },
-    leave: { opacity: 0, transform: "translate(-50%, -50%) scale(0.5)" },
+    leave: { opacity: 0, transform: "translate(-50%, -50%) scale(0.8)" },
   })
   const overlayTransitions = useTransition(showForm, null, {
     from: { opacity: 0 },
@@ -114,7 +144,10 @@ const Content = () => {
                   <Event key={`event-${i}`} {...{ event }} />
                 ))}
               </ul>
-              <button onClick={() => setShowForm(true)} className="button">
+              <button
+                onClick={() => setShowForm(true)}
+                className="button contact_form_btn"
+              >
                 Say hello
               </button>
             </animated.div>
@@ -126,12 +159,12 @@ const Content = () => {
             >
               <button
                 onClick={() => setShowForm(false)}
-                className="close_panel"
+                className="close_panel button"
               >
                 <CloseIcon />
               </button>
 
-              <h2>Contact from</h2>
+              <h1>Contact us</h1>
               <ContactForm />
             </animated.div>
           )
@@ -158,7 +191,7 @@ const Contact = () => {
   `)
 
   return (
-    <Layout isHomePage withHero>
+    <Layout withHero>
       <SEO title="Conatct us" />
       <div
         style={{

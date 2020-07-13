@@ -25,17 +25,21 @@ export const PageTransition = ({ children }) => (
   </TransitionState>
 )
 
-export const SpringLink = ({ to, children, className, activeClassName }) => (
-  <TransitionLink
-    {...{ activeClassName }}
-    {...{ className }}
-    to={to}
-    exit={{ length: 1 }}
-    entry={{ length: 1 }}
-  >
-    {children}
-  </TransitionLink>
-)
+export const SpringLink = React.forwardRef((props, ref) => {
+  const { to, children, className, activeClassName } = props
+  return (
+    <TransitionLink
+      ref={ref}
+      {...{ activeClassName }}
+      {...{ className }}
+      to={to}
+      exit={{ length: 1 }}
+      entry={{ length: 1 }}
+    >
+      {children}
+    </TransitionLink>
+  )
+})
 
 export const ZoomIn = ({ children }) => {
   const [show, set] = useState(false)

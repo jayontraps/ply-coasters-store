@@ -8,15 +8,17 @@ import Cart from "../Cart/Cart"
 import Nav from "../Nav"
 import MobileNav from "../Nav/MobileNav"
 import { StoreContext } from "../../context/StoreContext"
+import { HeroContext } from "../../context/HeroContext"
 import StyledHeader from "./styles"
 import { SpringLink } from "../react-spring-animation"
-import { useBelowTheFold } from "../../hooks"
 
-const Header = ({ siteTitle, isHomePage }) => {
+const Header = ({ isHomePage, withHero }) => {
   const [mobileNav, setMobileNav] = useState(false)
   const { toggleCartOpen, checkout, isLoading, isCartOpen } = useContext(
     StoreContext
   )
+
+  const { scrolledBellowHero } = useContext(HeroContext)
 
   const quantity = checkout.lineItems.reduce((acc, item) => {
     return acc + item.quantity
@@ -34,47 +36,47 @@ const Header = ({ siteTitle, isHomePage }) => {
     leave: { opacity: 0 },
   })
 
-  const belowTheFold = useBelowTheFold(false)
-
   return (
     <StyledHeader
-      {...{ isLoading, belowTheFold, isHomePage }}
+      {...{ isLoading, isHomePage, scrolledBellowHero, withHero }}
       className="header"
     >
-      <SpringLink to="/" className="branding__link">
-        <img src={logo} alt="Level Up Logo" className="branding__logo" />
-      </SpringLink>
+      <div className="header__inner">
+        <SpringLink to="/" className="branding__link">
+          <img src={logo} alt="Level Up Logo" className="branding__logo" />
+        </SpringLink>
 
-      <Nav />
-      {mobileNavTransitions.map(
-        ({ item, key, props }) =>
-          item && (
-            <MobileNav key={key} style={props} setMobileNav={setMobileNav} />
-          )
-      )}
-      <div className="btn_group">
-        <button
-          onClick={() => setMobileNav(true)}
-          className="nav_toggle__btn btn_icon header_btn"
-        >
-          <MenuIcon />
-        </button>
-        <button
-          className="cart_toggle__btn btn_icon header_btn"
-          onClick={toggleCartOpen}
-        >
-          {quantity > 0 && (
-            <div className="cart_toggle__quantity">
-              <span>{quantity}</span>
-            </div>
-          )}
-          <ShoppingBasketIcon />
-        </button>
+        <Nav />
+        {mobileNavTransitions.map(
+          ({ item, key, props }) =>
+            item && (
+              <MobileNav key={key} style={props} setMobileNav={setMobileNav} />
+            )
+        )}
+        <div className="btn_group">
+          <button
+            onClick={() => setMobileNav(true)}
+            className="nav_toggle__btn btn_icon header_btn"
+          >
+            <MenuIcon />
+          </button>
+          <button
+            className="cart_toggle__btn btn_icon header_btn"
+            onClick={toggleCartOpen}
+          >
+            {quantity > 0 && (
+              <div className="cart_toggle__quantity">
+                <span>{quantity}</span>
+              </div>
+            )}
+            <ShoppingBasketIcon />
+          </button>
+        </div>
+
+        {cartTransitions.map(
+          ({ item, key, props }) => item && <Cart key={key} style={props} />
+        )}
       </div>
-
-      {cartTransitions.map(
-        ({ item, key, props }) => item && <Cart key={key} style={props} />
-      )}
     </StyledHeader>
   )
 }
