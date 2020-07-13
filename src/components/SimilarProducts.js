@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "@emotion/styled"
-import ProductCard from "../components/productsListing/ProductCard"
+import ProductCard from "../components/ProductsListing/ProductCard"
 
 const SimilarProductsGrid = styled.div`
   width: calc(100% - ${({ theme }) => theme.spacing.gridGap});
