@@ -1,6 +1,9 @@
 const path = require("path")
 
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
+  // const catalog = await graphql`
+
+  // `
   const pages = await graphql(`
     query PagesQuery {
       allShopifyProduct {
@@ -43,6 +46,18 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
       createPage({
         path: `/${handle}`,
         component: path.resolve("./src/templates/ProductCollectionTemplate.js"),
+        context: {
+          id,
+          handle,
+        },
+      })
+    }
+  )
+  collections.data.allShopifyCollection.edges.forEach(
+    ({ node: { id, handle } }) => {
+      createPage({
+        path: `/catalog/${handle}`,
+        component: path.resolve("./src/templates/CatalogTemplate.js"),
         context: {
           id,
           handle,

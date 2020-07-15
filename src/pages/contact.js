@@ -197,7 +197,7 @@ const Contact = () => {
         style={{
           position: "fixed",
           width: "100vw",
-          height: "94vh",
+          height: "100vh",
           overflow: "hidden",
         }}
       >
@@ -207,7 +207,7 @@ const Contact = () => {
             objectFit="cover"
             objectPosition="50% 50%"
             style={{
-              height: "94vh",
+              height: "100vh",
             }}
           />
         </ZoomIn>

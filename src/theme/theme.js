@@ -9,7 +9,7 @@ const theme = {
   },
   layout: {
     innerWidth: "800px",
-    maxWidth: "1200px",
+    maxWidth: "1100px",
     productWidth: "1080px",
     leaderWidth: "800px",
     width: "95%",
@@ -24,6 +24,7 @@ const theme = {
   },
   colors: {
     bgColor: "#F8E1B6",
+    bgColorLight: "#FFF0D4",
     primary: "#17181A",
     slate: "#20232f",
     slateTrans: "rgba(32, 35, 47, 0.4)",

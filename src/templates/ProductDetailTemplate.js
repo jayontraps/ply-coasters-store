@@ -17,6 +17,7 @@ const {
 } = theme
 
 const StyledProduct = styled.div`
+  width: calc(100% - 2rem);
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing.gridGap} 0

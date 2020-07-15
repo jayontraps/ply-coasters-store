@@ -4,6 +4,9 @@ import CloseIcon from "@material-ui/icons/Close"
 import { useScrollFreeze } from "../../hooks"
 import StyledMobileNav from "./MobileNavStyles"
 import { SpringLink } from "../react-spring-animation"
+import theme from "../../theme/theme"
+
+const { colors } = theme
 
 const MobileNav = ({ setMobileNav, style }) => {
   useScrollFreeze()
@@ -18,7 +21,7 @@ const MobileNav = ({ setMobileNav, style }) => {
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: "rebeccapurple",
+        backgroundColor: colors.slate,
         ...style,
       }}
     >
@@ -34,20 +37,16 @@ const MobileNav = ({ setMobileNav, style }) => {
           Home
         </SpringLink>
 
-        <SpringLink activeClassName="current-page" to="/gallery">
-          Gallery
+        <SpringLink activeClassName="current-page" to="/catalog">
+          Catalog
         </SpringLink>
 
-        <SpringLink activeClassName="current-page" to="/store">
-          Store
+        <SpringLink activeClassName="current-page" to="/stories">
+          Stories
         </SpringLink>
 
-        <SpringLink activeClassName="current-page" to="/test">
-          Test
-        </SpringLink>
-
-        <SpringLink activeClassName="current-page" to="/detect">
-          detect
+        <SpringLink activeClassName="current-page" to="/contact">
+          Find us
         </SpringLink>
       </StyledMobileNav>
     </animated.div>
