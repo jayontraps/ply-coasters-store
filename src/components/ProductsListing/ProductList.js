@@ -68,17 +68,20 @@ const StyledProductList = styled.div`
 
   .product-grid {
     padding-bottom: 2rem;
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+    max-width: ${({ theme }) => theme.layout.maxWidth};
   }
 `
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, title = "Catalog" }) => {
   const hasProducts = products.length > 0
   return (
     <StyledProductList>
       <div className="prod__header">
-        <h1 className="prod__title">Catalog</h1>
+        <h1 className="prod__title">{title}</h1>
         <div className="prod__links">
-          <DropdownMenu title="Collections">
+          <DropdownMenu title="Filter by collection">
             <CatalogLinks />
           </DropdownMenu>
         </div>

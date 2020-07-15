@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import styled from "@emotion/styled"
 import { graphql } from "gatsby"
 import {
+  Magnifier,
   SideBySideMagnifier,
   MOUSE_ACTIVATION,
   TOUCH_ACTIVATION,
@@ -13,18 +14,19 @@ import { SpringLink } from "../components/react-spring-animation"
 import SimilarProducts from "../components/SimilarProducts"
 
 const {
-  mq: { tabletLandscapeUp },
+  mq: { small, tabletLandscapeUp },
 } = theme
 
 const StyledProduct = styled.div`
   width: calc(100% - 2rem);
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing.gridGap} 0
-    ${({ theme }) => theme.spacing.section} 0;
+  padding-bottom: ${({ theme }) => theme.spacing.section};
+
   img {
     max-width: none;
   }
+
   .column {
     width: 100%;
   }
@@ -39,6 +41,17 @@ const StyledProduct = styled.div`
     }
   }
 
+  .product__images {
+    ${small} {
+      width: 90%;
+      margin: 2rem auto;
+    }
+
+    .main__image {
+      margin-bottom: 1rem;
+    }
+  }
+
   .product__desc,
   .product__price {
     margin-bottom: 1rem;
@@ -48,17 +61,51 @@ const StyledProduct = styled.div`
     font-weight: bold;
   }
 `
-const StyledThumbnailNav = styled.ul`
-  display: flex;
-  padding: 0;
+
+const StyledThumbnailNav = styled.nav`
+  ul {
+    display: flex;
+    padding: 0;
+  }
+
   li {
     list-style: none;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin-right: 0.5rem;
+    &:last-of-type {
+      padding-right: 40px;
+    }
+    ${tabletLandscapeUp} {
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
-  ${tabletLandscapeUp} {
-    li:hover {
-      cursor: pointer;
+
+  ${small} {
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    margin: 0 auto 1rem auto;
+    position: relative;
+
+    ul {
+      width: 100%;
+      padding-bottom: 100px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      margin: 0 auto;
+    }
+
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  img {
+    border: 2px solid ${({ theme }) => theme.colors.bgColor};
+    &.active {
+      border-color: ${({ theme }) => theme.colors.slate};
     }
   }
 `
@@ -66,7 +113,10 @@ const StyledThumbnailNav = styled.ul`
 const StyledCollectionLink = styled.div`
   width: calc(100% - 2rem);
   max-width: ${({ theme }) => theme.layout.maxWidth};
-  margin: ${({ theme }) => theme.spacing.gridGap} auto 0 auto;
+  ${small} {
+    margin: 1rem auto;
+  }
+  margin: ${({ theme }) => theme.spacing.gridGap} auto;
   .collection-link {
     color: ${({ theme }) => theme.colors.primary};
     text-decoration: none;
@@ -98,14 +148,15 @@ const ProductDetailTemplate = ({ data }) => {
     large: firstImage.localFile.childImageSharp.large.src,
   }
   const [activeImage, setActiveImage] = useState(firstSet)
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
 
   return (
     <Layout>
       {parentCollection && <CollectionLink collection={parentCollection} />}
       <StyledProduct className="product">
-        <div className="column">
-          <div>
-            <SideBySideMagnifier
+        <div className="column product__images">
+          <div className="main__image">
+            {/* <SideBySideMagnifier
               fillAvailableSpace={false}
               cursorStyle="crosshair"
               className="input-position"
@@ -115,23 +166,42 @@ const ProductDetailTemplate = ({ data }) => {
               overlayOpacity={1}
               mouseActivation={MOUSE_ACTIVATION.DOUBLE_CLICK}
               touchActivation={TOUCH_ACTIVATION.DOUBLE_TAP}
+            /> */}
+            <Magnifier
+              imageSrc={activeImage.small}
+              imageAlt="Example"
+              largeImageSrc={activeImage.large}
+              mouseActivation={MOUSE_ACTIVATION.CLICK} // Optional
+              touchActivation={TOUCH_ACTIVATION.SINGLE_TAP} // Optional
             />
           </div>
           <StyledThumbnailNav>
-            {images.map((image, index) => (
-              <li
-                onClick={() => {
-                  const newImage = {
-                    small: images[index].localFile.childImageSharp.small.src,
-                    large: images[index].localFile.childImageSharp.large.src,
-                  }
-                  setActiveImage(newImage)
-                }}
-                key={index}
-              >
-                <img src={image.localFile.childImageSharp.thumb.src} alt="" />
-              </li>
-            ))}
+            <ul>
+              {images.map((image, index) => {
+                const isActiveClass = index === activeImageIndex ? "active" : ""
+                return (
+                  <li
+                    onClick={() => {
+                      const newImage = {
+                        small:
+                          images[index].localFile.childImageSharp.small.src,
+                        large:
+                          images[index].localFile.childImageSharp.large.src,
+                      }
+                      setActiveImage(newImage)
+                      setActiveImageIndex(index)
+                    }}
+                    key={index}
+                  >
+                    <img
+                      className={isActiveClass}
+                      src={image.localFile.childImageSharp.thumb.src}
+                      alt=""
+                    />
+                  </li>
+                )
+              })}
+            </ul>
           </StyledThumbnailNav>
         </div>
         <div className="column product__details">

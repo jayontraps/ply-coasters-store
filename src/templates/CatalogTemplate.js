@@ -9,7 +9,10 @@ const CatalogTemplate = ({ data }) => {
   return (
     <Layout>
       <SEO title={shopifyCollection.title} />
-      <ProductList products={shopifyCollection.products} />
+      <ProductList
+        title={shopifyCollection.title}
+        products={shopifyCollection.products}
+      />
     </Layout>
   )
 }

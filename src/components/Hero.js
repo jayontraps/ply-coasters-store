@@ -16,7 +16,7 @@ const StyledHero = styled.div`
   position: fixed;
   top: 0;
   width: 100vw;
-  height: ${({ viewportHeight }) => viewportHeight}vh;
+  height: ${({ vhValue }) => vhValue}vh;
   overflow: hidden;
   &.with-tint {
     &:after {
@@ -44,7 +44,7 @@ const StyledHero = styled.div`
 const StyledScrollDown = styled(ScrollDown)`
   position: absolute;
   left: calc(50% - 20px);
-  top: calc(${({ viewportHeight }) => `${viewportHeight}vh`} - 130px);
+  top: calc(${({ vhValue }) => `${vhValue}vh`} - 130px);
 `
 
 const StyledTitle = styled.div`
@@ -70,7 +70,7 @@ const StyledTitle = styled.div`
 
 const HeroFrameObserved = styled.div`
   width: 100vw;
-  height: ${({ viewportHeight }) => `${viewportHeight}vh`};
+  height: ${({ vhValue }) => `${vhValue}vh`};
   background-color: transparent;
   position: relative;
   z-index: -1;
@@ -78,7 +78,7 @@ const HeroFrameObserved = styled.div`
 
 const isBrowser = typeof window !== "undefined"
 
-const Hero = ({ image, viewportHeight = 94, title, isHomePage = false }) => {
+const Hero = ({ image, vhValue = 94, title, isHomePage = false }) => {
   const { setScrolledBellowHero } = useContext(HeroContext)
 
   const [ref, entry] = useIntersect({})
@@ -102,11 +102,11 @@ const Hero = ({ image, viewportHeight = 94, title, isHomePage = false }) => {
     }
   }
 
-  const showScrollDown = viewportHeight > 80
+  const showScrollDown = vhValue > 80
 
   return (
     <>
-      <StyledHero className={title ? "with-tint" : ""} {...{ viewportHeight }}>
+      <StyledHero className={title ? "with-tint" : ""} {...{ vhValue }}>
         <ZoomIn>
           <Img
             backgroundColor
@@ -114,12 +114,12 @@ const Hero = ({ image, viewportHeight = 94, title, isHomePage = false }) => {
             objectFit="cover"
             objectPosition="50% 50%"
             style={{
-              height: `${viewportHeight}vh`,
+              height: `${vhValue}vh`,
             }}
           />
         </ZoomIn>
         {showScrollDown && (
-          <StyledScrollDown {...{ viewportHeight }} onClick={scrollToContent} />
+          <StyledScrollDown {...{ vhValue }} onClick={scrollToContent} />
         )}
         {isHomePage && <LargeLogo />}
         {title && !isHomePage && (
@@ -128,7 +128,7 @@ const Hero = ({ image, viewportHeight = 94, title, isHomePage = false }) => {
           </StyledTitle>
         )}
       </StyledHero>
-      <HeroFrameObserved {...{ viewportHeight }} ref={ref} />
+      <HeroFrameObserved {...{ vhValue }} ref={ref} />
     </>
   )
 }

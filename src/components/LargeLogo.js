@@ -1,8 +1,16 @@
 import React from "react"
 import styled from "@emotion/styled"
+import theme from "../theme/theme"
+
+const {
+  mq: { small },
+} = theme
 
 const StyledLargeLogo = styled.div`
   position: absolute;
+  ${small} {
+    width: 80%;
+  }
   top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);

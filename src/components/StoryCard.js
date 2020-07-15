@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react"
 import styled from "@emotion/styled"
 import { animated, useTransition } from "react-spring"
+import { isMobile } from "react-device-detect"
 import CloseIcon from "@material-ui/icons/Close"
 import getTransitionEndEventName from "../utils/getTransitionEndEventName"
+
+const scaleValue = isMobile ? "1" : "1.2"
 
 const StyledStoryCard = styled.div`
   height: 100%;
@@ -126,11 +129,11 @@ const StyledStoryCard = styled.div`
 
   &.moveToCenter {
     .Card__front {
-      transform: perspective(800px) rotateY(179.9deg) scale(1.2);
+      transform: perspective(800px) rotateY(179.9deg) scale(${scaleValue});
     }
 
     .Card__back {
-      transform: perspective(800px) rotateY(0deg) scale(1.2);
+      transform: perspective(800px) rotateY(0deg) scale(${scaleValue});
     }
   }
 

@@ -2,7 +2,7 @@ import React from "react"
 import styled from "@emotion/styled"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import ProductCard from "../components/ProductsListing/ProductCard"
+import ProductGrid from "../components/ProductsListing/ProductGrid"
 import theme from "../theme/theme"
 import SEO from "../components/seo"
 import Hero from "../components/Hero"
@@ -11,7 +11,7 @@ const {
   mq: { tabletLandscapeUp },
 } = theme
 
-const viewportHeight = 66.66
+const vhValue = 66.66
 
 const Container = styled.div`
   min-height: 100vh;
@@ -20,19 +20,14 @@ const Container = styled.div`
   position: relative;
   z-index: 9999;
   background-color: ${({ theme }) => theme.colors.bgColor};
-`
-
-const StyledProductGrid = styled.div`
-  width: calc(100% - 2rem);
-  max-width: ${({ theme }) => theme.layout.maxWidth};
-  margin: 0 auto;
-  padding-top: 3rem;
   .product-grid {
+    padding-top: ${({ theme }) => theme.spacing.gridGap};
     ${tabletLandscapeUp} {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-gap: 3rem;
+      padding-top: ${({ theme }) => theme.spacing.section};
     }
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+    max-width: ${({ theme }) => theme.layout.maxWidth};
   }
 `
 
@@ -49,20 +44,10 @@ const ProductCategoriesTemplate = ({ data }) => {
   return (
     <Layout withHero>
       <SEO title={shopifyCollection.title} />
-      <Hero
-        viewportHeight={viewportHeight}
-        title={shopifyCollection.title}
-        image={fluid}
-      />
+      <Hero {...{ vhValue }} title={shopifyCollection.title} image={fluid} />
 
       <Container>
-        <StyledProductGrid>
-          <div className="product-grid">
-            {shopifyCollection.products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </StyledProductGrid>
+        <ProductGrid products={shopifyCollection.products} />
       </Container>
     </Layout>
   )

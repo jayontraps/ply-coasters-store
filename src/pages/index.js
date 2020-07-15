@@ -1,11 +1,14 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import styled from "@emotion/styled"
+import { isMobile } from "react-device-detect"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Collections from "../components/Collections"
 import Hero from "../components/Hero"
 import LeadModule from "../components/LeadModule"
+
+const vhValue = isMobile ? 80 : 94
 
 const Container = styled.div`
   min-height: 100vh;
@@ -39,7 +42,7 @@ const IndexPage = () => {
   return (
     <Layout withHero isHomePage>
       <SEO title="Home" />
-      <Hero isHomePage viewportHeight={94} image={data.image1.sharp.fluid} />
+      <Hero isHomePage {...{ vhValue }} image={data.image1.sharp.fluid} />
       <Container>
         <LeadModule
           image={data.image2.sharp.fluid}

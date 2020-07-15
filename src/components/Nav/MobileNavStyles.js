@@ -8,6 +8,7 @@ const StyledMobileNav = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+  padding-bottom: 50px;
 
   .nav_close__btn {
     position: absolute;

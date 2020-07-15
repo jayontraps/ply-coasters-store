@@ -6,11 +6,14 @@ import theme from "../theme/theme"
 import StoryCard from "../components/StoryCard"
 
 const {
-  mq: { mediumOnly, large },
+  mq: { mediumOnly, medium, large },
 } = theme
 
 const StyledCardGrid = styled.div`
-  height: 100vh;
+  height: 300vh;
+  ${medium} {
+    height: 100vh;
+  }
   position: relative;
   display: grid;
   background-color: ${({ theme }) => theme.colors.dark_green_grey};

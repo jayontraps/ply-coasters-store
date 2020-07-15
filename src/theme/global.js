@@ -25,7 +25,6 @@ const globalStyles = () => {
 
     h1 {
       font-size: 2.5rem;
-      line-height: 1.7;
     }
 
     .button {
@@ -34,6 +33,10 @@ const globalStyles = () => {
       outline: none;
       display: inline-block;
       padding: 1em;
+      background-color: rgba(75, 75, 75, 0.15);
+      &:disabled {
+        background-color: whitesmoke;
+      }
       &:hover {
         cursor: pointer;
       }

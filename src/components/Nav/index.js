@@ -9,7 +9,7 @@ const Nav = () => {
         Home
       </SpringLink>
       <SpringLink activeClassName="current-page" to="/catalog">
-        Catalog
+        Shop
       </SpringLink>
       <SpringLink activeClassName="current-page" to="/stories">
         Stories

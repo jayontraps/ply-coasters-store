@@ -1,14 +1,13 @@
 import React from "react"
 import styled from "@emotion/styled"
-import ProductCard from "../components/ProductsListing/ProductCard"
+import ProductGrid from "../components/ProductsListing/ProductGrid"
 
 const SimilarProductsGrid = styled.div`
   width: calc(100% - ${({ theme }) => theme.spacing.gridGap});
   max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+  h2 {
+    margin-bottom: 1rem;
   }
 `
 const SimilarProducts = ({
@@ -25,11 +24,7 @@ const SimilarProducts = ({
   return (
     <SimilarProductsGrid {...{ className }} {...{ style }}>
       <h2>Similar products</h2>
-      <div className="grid">
-        {similarProducts.slice(0, 2).map((product) => (
-          <ProductCard key={`product-${product.id}`} {...{ product }} />
-        ))}
-      </div>
+      <ProductGrid products={similarProducts} />
     </SimilarProductsGrid>
   )
 }

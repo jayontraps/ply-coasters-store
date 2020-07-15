@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Layout from "../components/layout"
 import ProductList from "../components/ProductsListing/ProductList"
@@ -40,7 +40,7 @@ const Catalog = () => {
 
   return (
     <Layout>
-      <ProductList products={prods} />
+      <ProductList title="All Coasters" products={prods} />
     </Layout>
   )
 }

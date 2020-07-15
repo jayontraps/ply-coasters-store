@@ -9,18 +9,15 @@ const {
 
 const StyledProductGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
   ${medium} {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
   ${tabletLandscapeUp} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: ${({ theme }) => theme.spacing.gridGap};
   }
-
-  grid-gap: ${({ theme }) => theme.spacing.gridGap};
-  width: calc(100% - 2rem);
-  margin: 0 auto;
-  max-width: ${({ theme }) => theme.layout.maxWidth};
 `
 const ProductGrid = ({ products }) => {
   return products.length > 0 ? (
