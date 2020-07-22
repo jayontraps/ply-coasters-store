@@ -44,18 +44,14 @@ const StyledCollections = styled.div`
 const Collections = ({ style }) => {
   const data = useStaticQuery(graphql`
     query {
-      allShopifyCollection {
-        edges {
-          node {
-            title
-            handle
-            image {
-              localFile {
-                childImageSharp {
-                  fluid(maxWidth: 400) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
+      allStrapiRange {
+        nodes {
+          slug
+          title
+          image {
+            childImageSharp {
+              fluid(maxWidth: 400) {
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
@@ -64,11 +60,9 @@ const Collections = ({ style }) => {
     }
   `)
 
-  const corkCollection = ["Cork Map Coasters", "Cork Map Placemats"].map(
+  const corkCollection = ["Cork coasters", "Cork placemats"].map(
     (title) =>
-      data.allShopifyCollection.edges.filter(
-        (edge) => edge.node.title === title
-      )[0].node
+      data.allStrapiRange.nodes.filter((node) => node.title === title)[0]
   )
 
   const plyCollection = [
@@ -77,9 +71,7 @@ const Collections = ({ style }) => {
     "Miscellaneous Ply coasters",
   ].map(
     (title) =>
-      data.allShopifyCollection.edges.filter(
-        (edge) => edge.node.title === title
-      )[0].node
+      data.allStrapiRange.nodes.filter((node) => node.title === title)[0]
   )
 
   return (

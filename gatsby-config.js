@@ -16,12 +16,18 @@ module.exports = {
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     {
-      resolve: "gatsby-source-shopify",
+      resolve: `gatsby-source-strapi`,
       options: {
-        shopName: "ply-coasters",
-        accessToken: "0f62cb5dd9f3d865332cacce4a23601b",
-        verbose: true,
-        paginationSize: 30,
+        apiURL: `http://localhost:1337`,
+        queryLimit: 1000, // Default to 100
+        contentTypes: ["product", "range"],
+        //If using single types place them in this array.
+        singleTypes: [],
+        // Possibility to login with a strapi user, when content types are not publically available (optional).
+        loginData: {
+          identifier: "",
+          password: "",
+        },
       },
     },
     {

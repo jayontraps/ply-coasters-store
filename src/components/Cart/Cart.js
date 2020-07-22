@@ -1,25 +1,27 @@
-import React, { useContext } from "react"
+import React, { useState, useContext } from "react"
 import { animated } from "react-spring"
 import CloseIcon from "@material-ui/icons/Close"
 import { isMobile } from "react-device-detect"
-import { StoreContext } from "../../context/StoreContext"
+import { CartContext } from "../../context/CartContext"
 import LineItem from "./LineItem"
 import StyledCart from "./StyledCart"
 import { useScrollFreeze } from "../../hooks"
 import Coupon from "./Coupon"
 import LoadingSpinner from "../LoadingSpinner"
+import { formatPrice } from "../../utils/formatPrice"
+import {
+  cartSubtotal,
+  cartTotal,
+  shouldPayShipping,
+  SHIPPING_RATE,
+} from "../../utils/cart"
+import Checkout from "../Checkout"
 
-const Cart = ({ style }) => {
-  const {
-    isLoading,
-    checkout,
-    toggleCartOpen,
-    removeProductFromCart,
-    updateQuantityInCart,
-    checkCoupon,
-    removeCoupon,
-  } = useContext(StoreContext)
+const Cart = ({ style, setCartOpen }) => {
+  const [showCheckout, setShowCheckout] = useState(false)
+  const { cart, isLoading } = useContext(CartContext)
   useScrollFreeze()
+
   return (
     <animated.div
       style={{
@@ -45,21 +47,19 @@ const Cart = ({ style }) => {
             right: "0",
           }}
           className="button"
-          onClick={toggleCartOpen}
+          onClick={() => setCartOpen(false)}
         >
           <CloseIcon />
         </button>
 
-        {checkout.lineItems.length > 0 ? (
+        {cart.length > 0 ? (
           <>
             <div className="cart__line_items">
-              {checkout.lineItems.map((item) => (
+              {cart.map((item) => (
                 <LineItem
                   key={item.id}
                   {...{
                     item,
-                    removeProductFromCart,
-                    updateQuantityInCart,
                     isLoading,
                   }}
                 />
@@ -67,20 +67,41 @@ const Cart = ({ style }) => {
             </div>
 
             <div className="cart__footer">
-              <Coupon {...{ checkout, checkCoupon, removeCoupon }} />
+              {/* <Coupon {...{ checkout, checkCoupon, removeCoupon }} /> */}
+
+              <h5 className="total__title">
+                Sub Total:{" "}
+                <span className="total__price">
+                  {isLoading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    formatPrice(cartSubtotal(cart))
+                  )}
+                </span>
+              </h5>
 
               <h5 className="total__title">
                 Total:{" "}
                 <span className="total__price">
-                  {isLoading ? <LoadingSpinner /> : `£${checkout.totalPrice}`}
+                  {isLoading ? (
+                    <LoadingSpinner />
+                  ) : (
+                    formatPrice(cartTotal(cart))
+                  )}
                 </span>
               </h5>
 
               <div className="buy_btn_wrapper">
-                <a href={checkout.webUrl} className="buy_btn button btn_icon">
+                <button
+                  onClick={() => {
+                    setShowCheckout(true)
+                  }}
+                  className="buy_btn button btn_icon"
+                >
                   Checkout
-                </a>
+                </button>
               </div>
+              {showCheckout && <Checkout cart={cart} />}
             </div>
           </>
         ) : (

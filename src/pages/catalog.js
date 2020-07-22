@@ -6,27 +6,26 @@ import ProductList from "../components/ProductsListing/ProductList"
 const Catalog = () => {
   const data = useStaticQuery(graphql`
     query {
-      products: allShopifyProduct(sort: { fields: publishedAt, order: ASC }) {
-        edges {
-          node {
-            title
-            id
-            handle
-            description
-            productType
-            variants {
-              shopifyId
-              title
-              price
-              availableForSale
+      products: allStrapiProduct(sort: { order: ASC, fields: updated_at }) {
+        nodes {
+          id
+          name
+          price
+          slug
+          description
+          thumbnail {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid_withWebp
+              }
             }
-            images {
+          }
+          images {
+            imageFile {
               id
-              localFile {
-                childImageSharp {
-                  fluid(maxWidth: 400, maxHeight: 400) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
+              childImageSharp {
+                fluid(maxWidth: 400, maxHeight: 400) {
+                  ...GatsbyImageSharpFluid_withWebp
                 }
               }
             }
@@ -36,7 +35,7 @@ const Catalog = () => {
     }
   `)
 
-  const prods = data.products.edges.map((prod) => prod.node)
+  const prods = data.products.nodes.map((prod) => prod)
 
   return (
     <Layout>

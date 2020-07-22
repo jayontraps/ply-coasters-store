@@ -10,18 +10,18 @@ const {
 } = theme
 
 const CollectionCard = ({ collection, className, delay = 0 }) => {
-  const { handle, title, image } = collection
+  const { slug, title, image } = collection
   const [cardInView, card] = useIsInViewport()
   const cardInViewClass = cardInView ? "visible" : "hidden"
   return (
     <SpringLink
       ref={card}
-      to={`/${handle}`}
+      to={`/range/${slug}`}
       className={`${className} ${cardInViewClass}`}
     >
       <Img
         backgroundColor
-        fluid={image.localFile.childImageSharp.fluid}
+        fluid={image.childImageSharp.fluid}
         objectFit="cover"
         objectPosition="50% 50%"
       />

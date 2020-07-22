@@ -31,62 +31,61 @@ const Container = styled.div`
   }
 `
 
-const ProductCategoriesTemplate = ({ data }) => {
-  const { shopifyCollection } = data
+const RangeTemplate = ({ data }) => {
+  const { strapiRange } = data
   const {
+    products,
+    title,
     image: {
-      localFile: {
-        childImageSharp: { fluid },
-      },
+      childImageSharp: { fluid },
     },
-  } = shopifyCollection
+  } = strapiRange
 
   return (
     <Layout withHero>
-      <SEO title={shopifyCollection.title} />
-      <Hero {...{ vhValue }} title={shopifyCollection.title} image={fluid} />
+      <SEO title={title} />
+      <Hero {...{ vhValue }} title={title} image={fluid} />
 
       <Container>
-        <ProductGrid products={shopifyCollection.products} />
+        <ProductGrid products={products} />
       </Container>
     </Layout>
   )
 }
 
-export default ProductCategoriesTemplate
+export default RangeTemplate
 
 export const query = graphql`
-  query($handle: String!) {
-    shopifyCollection(handle: { eq: $handle }) {
+  query($slug: String!) {
+    strapiRange(slug: { eq: $slug }) {
       title
       image {
-        localFile {
-          childImageSharp {
-            fluid(maxWidth: 1800) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
+        childImageSharp {
+          fluid(maxWidth: 1800) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       products {
-        title
         id
-        handle
+        name
         description
-        productType
-        variants {
-          shopifyId
-          title
-          price
-          availableForSale
-        }
+        price
+        slug
         images {
-          id
-          localFile {
+          imageFile {
+            id
             childImageSharp {
-              fluid(maxWidth: 400, maxHeight: 400) {
+              fluid(maxWidth: 1200) {
                 ...GatsbyImageSharpFluid_withWebp
               }
+            }
+          }
+        }
+        thumbnail {
+          childImageSharp {
+            fluid(maxWidth: 400) {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }

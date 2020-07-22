@@ -7,24 +7,24 @@ import logo from "../../../images/logo-shapes-plus-words-2.svg"
 import Cart from "../Cart/Cart"
 import Nav from "../Nav"
 import MobileNav from "../Nav/MobileNav"
-import { StoreContext } from "../../context/StoreContext"
+import { CartContext } from "../../context/CartContext"
 import { HeroContext } from "../../context/HeroContext"
 import StyledHeader from "./styles"
 import { SpringLink } from "../react-spring-animation"
+import { totalItemsInCart } from "../../utils/cart"
 
 const Header = ({ isHomePage, withHero }) => {
   const [mobileNav, setMobileNav] = useState(false)
-  const { toggleCartOpen, checkout, isLoading, isCartOpen } = useContext(
-    StoreContext
-  )
+
+  const [cartOpen, setCartOpen] = useState(false)
+
+  const { cart } = useContext(CartContext)
 
   const { scrolledBellowHero } = useContext(HeroContext)
 
-  const quantity = checkout.lineItems.reduce((acc, item) => {
-    return acc + item.quantity
-  }, 0)
+  const itemsInCart = totalItemsInCart(cart)
 
-  const cartTransitions = useTransition(isCartOpen, null, {
+  const cartTransitions = useTransition(cartOpen, null, {
     from: { transform: "translate3d(100%, 0, 0" },
     enter: { transform: "translate3d(0, 0, 0" },
     leave: { transform: "translate3d(100%, 0, 0" },
@@ -38,7 +38,7 @@ const Header = ({ isHomePage, withHero }) => {
 
   return (
     <StyledHeader
-      {...{ isLoading, isHomePage, scrolledBellowHero, withHero }}
+      {...{ isHomePage, scrolledBellowHero, withHero }}
       className="header"
     >
       <div className="header__inner">
@@ -62,11 +62,11 @@ const Header = ({ isHomePage, withHero }) => {
           </button>
           <button
             className="cart_toggle__btn btn_icon header_btn"
-            onClick={toggleCartOpen}
+            onClick={() => setCartOpen(true)}
           >
-            {quantity > 0 && (
+            {itemsInCart > 0 && (
               <div className="cart_toggle__quantity">
-                <span>{quantity}</span>
+                <span>{itemsInCart}</span>
               </div>
             )}
             <ShoppingBasketIcon />
@@ -74,7 +74,8 @@ const Header = ({ isHomePage, withHero }) => {
         </div>
 
         {cartTransitions.map(
-          ({ item, key, props }) => item && <Cart key={key} style={props} />
+          ({ item, key, props }) =>
+            item && <Cart {...{ setCartOpen }} key={key} style={props} />
         )}
       </div>
     </StyledHeader>

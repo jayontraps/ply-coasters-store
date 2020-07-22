@@ -1,68 +1,104 @@
 const path = require("path")
+const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
-  // const catalog = await graphql`
-
-  // `
-  const pages = await graphql(`
-    query PagesQuery {
-      allShopifyProduct {
+  const products = await graphql(`
+    {
+      allStrapiProduct {
         edges {
           node {
             id
-            handle
+            slug
           }
         }
       }
     }
   `)
-
-  pages.data.allShopifyProduct.edges.forEach(({ node: { id, handle } }) => {
+  products.data.allStrapiProduct.edges.forEach(({ node }) => {
     createPage({
-      path: `/product/${handle}`,
-      component: path.resolve("./src/templates/ProductDetailTemplate.js"),
+      path: `/product/${node.slug}`,
+      component: path.resolve(`src/templates/product.js`),
       context: {
-        id,
-        handle,
+        id: node.id,
       },
     })
   })
-  const collections = await graphql(`
+
+  const ranges = await graphql(`
     query {
-      allShopifyCollection {
-        edges {
-          node {
-            id
-            title
-            handle
-          }
+      allStrapiRange {
+        nodes {
+          slug
+          id
+          strapiId
         }
       }
     }
   `)
 
-  collections.data.allShopifyCollection.edges.forEach(
-    ({ node: { id, handle } }) => {
-      createPage({
-        path: `/${handle}`,
-        component: path.resolve("./src/templates/ProductCollectionTemplate.js"),
-        context: {
-          id,
-          handle,
+  ranges.data.allStrapiRange.nodes.forEach(({ id, slug, strapiId }) => {
+    createPage({
+      path: `/range/${slug}`,
+      component: path.resolve("./src/templates/RangeTemplate.js"),
+      context: {
+        id,
+        slug,
+        strapiId,
+      },
+    })
+  })
+  ranges.data.allStrapiRange.nodes.forEach(({ id, slug, strapiId }) => {
+    createPage({
+      path: `/catalog/${slug}`,
+      component: path.resolve("./src/templates/CatalogTemplate.js"),
+      context: {
+        id,
+        slug,
+        strapiId,
+      },
+    })
+  })
+}
+
+exports.createResolvers = ({
+  actions,
+  cache,
+  createNodeId,
+  createResolvers,
+  store,
+  reporter,
+}) => {
+  const { createNode } = actions
+  createResolvers({
+    StrapiProductImages: {
+      imageFile: {
+        type: `File`,
+        resolve(source, args, context, info) {
+          return createRemoteFileNode({
+            url: `http://localhost:1337${source.url}`, // for S3 upload. For local: `http://localhost:1337${source.url}`,
+            store,
+            cache,
+            createNode,
+            createNodeId,
+            reporter,
+          })
         },
-      })
-    }
-  )
-  collections.data.allShopifyCollection.edges.forEach(
-    ({ node: { id, handle } }) => {
-      createPage({
-        path: `/catalog/${handle}`,
-        component: path.resolve("./src/templates/CatalogTemplate.js"),
-        context: {
-          id,
-          handle,
+      },
+    },
+    StrapiRangeProductsImages: {
+      imageFile: {
+        type: `File`,
+        resolve(source, args, context, info) {
+          return createRemoteFileNode({
+            url: `http://localhost:1337${source.url}`, // for S3 upload. For local: `http://localhost:1337${source.url}`,
+            store,
+            cache,
+            createNode,
+            createNodeId,
+            reporter,
+          })
         },
-      })
-    }
-  )
+      },
+    },
+  })
 }

@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "@emotion/styled"
 import Quantity from "./Quantity"
 import theme from "../../theme/theme"
+import { formatPrice } from "../../utils/formatPrice"
+import { CartContext } from "../../context/CartContext"
 
 const {
   mq: { tabletLandscapeUp },
@@ -56,30 +58,28 @@ const StyledLineItem = styled.div`
   }
 `
 
-const LineItem = ({
-  isLoading,
-  item,
-  removeProductFromCart = () => {},
-  updateQuantityInCart = () => {},
-}) => {
+const LineItem = ({ isLoading, item }) => {
+  const { updateQuantity, removeProductFromCart } = useContext(CartContext)
+
   function setQuantity(quantity) {
-    updateQuantityInCart({
-      id: item.id,
-      quantity: quantity,
-    })
+    updateQuantity(item, quantity)
   }
 
   return (
     <StyledLineItem className="line-item">
       <div className="line-item__col">
-        <img className="line-item__img" src={item.variant.image.src} alt="" />
+        <img
+          className="line-item__img"
+          src={item.thumbnail.childImageSharp.fluid.src}
+          alt=""
+        />
       </div>
       <div className="line-item__col line-item__details">
         <h4 className="line-item__title">{item.title}</h4>
-        <div className="line-item__price">£{item.variant.price}</div>
+        <div className="line-item__price">{formatPrice(item.price)}</div>
         <button
           className="line-item__remove button"
-          onClick={() => removeProductFromCart(item.id)}
+          onClick={() => removeProductFromCart(item)}
         >
           Remove{" "}
         </button>
@@ -87,14 +87,12 @@ const LineItem = ({
       <div className="line-item__col">
         <Quantity
           showTitle={false}
-          quantity={item.quantity}
+          quantity={item.qty}
           {...{ setQuantity, isLoading }}
         />
       </div>
       <div className="line-item__col">
-        <span className="line-item__subtotal">
-          £{parseFloat(item.variant.price * item.quantity).toFixed(2)}
-        </span>
+        <span className="line-item__subtotal">{formatPrice(item.price)}</span>
       </div>
     </StyledLineItem>
   )

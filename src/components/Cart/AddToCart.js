@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react"
 import styled from "@emotion/styled"
-import { StoreContext } from "../../context/StoreContext"
+import { CartContext } from "../../context/CartContext"
 import LoadingSpinner from "../LoadingSpinner"
 import Quantity from "./Quantity"
 
@@ -19,16 +19,16 @@ const StyledAddToCartButton = styled.button`
   height: 50px;
 `
 
-const AddToCart = ({ variantId }) => {
-  const { addProductToCart, isLoading } = useContext(StoreContext)
+const AddToCart = ({ data, isLoading = false }) => {
   const [quantity, setQuantity] = useState(1)
+  const { addToCart } = useContext(CartContext)
 
   return (
     <>
       <Quantity {...{ quantity, setQuantity }} />
       <StyledAddToCartButton
         className="button"
-        onClick={() => addProductToCart({ variantId, quantity })}
+        onClick={() => addToCart(data, quantity)}
       >
         {isLoading ? <LoadingSpinner colorModer="light" /> : `Add to basket`}
       </StyledAddToCartButton>

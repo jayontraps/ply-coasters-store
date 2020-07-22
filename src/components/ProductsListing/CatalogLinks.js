@@ -3,30 +3,27 @@ import { graphql, useStaticQuery } from "gatsby"
 import { SpringLink } from "../react-spring-animation"
 
 const CatalogLinks = ({ className }) => {
-  const { allShopifyCollection } = useStaticQuery(graphql`
+  const { allStrapiRange } = useStaticQuery(graphql`
     query {
-      allShopifyCollection {
-        edges {
-          node {
-            id
-            title
-            handle
-          }
+      allStrapiRange {
+        nodes {
+          title
+          slug
+          id
+          strapiId
         }
       }
     }
   `)
-  return allShopifyCollection.edges.length > 0 ? (
+  return allStrapiRange.nodes.length > 0 ? (
     <nav {...{ className }}>
       <ul>
         <li>
           <SpringLink to={`/catalog`}>All Coasters</SpringLink>
         </li>
-        {allShopifyCollection.edges.map((collection) => (
-          <li key={collection.node.id}>
-            <SpringLink to={`/catalog/${collection.node.handle}`}>
-              {collection.node.title}
-            </SpringLink>
+        {allStrapiRange.nodes.map((range) => (
+          <li key={range.id}>
+            <SpringLink to={`/catalog/${range.slug}`}>{range.title}</SpringLink>
           </li>
         ))}
       </ul>

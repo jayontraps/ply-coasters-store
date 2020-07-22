@@ -5,14 +5,11 @@ import ProductList from "../components/ProductsListing/ProductList"
 import SEO from "../components/seo"
 
 const CatalogTemplate = ({ data }) => {
-  const { shopifyCollection } = data
+  const { strapiRange } = data
   return (
     <Layout>
-      <SEO title={shopifyCollection.title} />
-      <ProductList
-        title={shopifyCollection.title}
-        products={shopifyCollection.products}
-      />
+      <SEO title={strapiRange.title} />
+      <ProductList title={strapiRange.title} products={strapiRange.products} />
     </Layout>
   )
 }
@@ -20,33 +17,32 @@ const CatalogTemplate = ({ data }) => {
 export default CatalogTemplate
 
 export const query = graphql`
-  query($handle: String!) {
-    shopifyCollection(handle: { eq: $handle }) {
+  query($slug: String!) {
+    strapiRange(slug: { eq: $slug }) {
       title
       image {
-        localFile {
-          childImageSharp {
-            fluid(maxWidth: 1800) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
+        childImageSharp {
+          fluid(maxWidth: 1800) {
+            ...GatsbyImageSharpFluid_withWebp
           }
         }
       }
       products {
-        title
         id
-        handle
+        name
+        slug
         description
-        productType
-        variants {
-          shopifyId
-          title
-          price
-          availableForSale
+        price
+        thumbnail {
+          childImageSharp {
+            fluid(maxWidth: 400) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
         }
         images {
           id
-          localFile {
+          imageFile {
             childImageSharp {
               fluid(maxWidth: 400, maxHeight: 400) {
                 ...GatsbyImageSharpFluid_withWebp
